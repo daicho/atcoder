@@ -10,8 +10,8 @@
 #define rrepr(i, a, b) for (int i = (b - 1); i >= (a); i--)
 #define rrep(i, ...) select(__VA_ARGS__, rrepr, rrepn)(i, __VA_ARGS__)
 
-#define all(v) (v).begin(), (v).end();
-#define debug(x) cerr << #x << " = " << x << endl
+#define all(v) v.begin(), v.end()
+#define debug(x) std::cerr << #x << " = " << x << std::endl
 
 using namespace std;
 using ll = long long;
