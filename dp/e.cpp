@@ -21,6 +21,29 @@ const ll LINF = 1e18;
 
 
 int main() {
+    int N, W;
+    cin >> N >> W;
+
+    vector<ll> w(N), v(N);
+    rep(i, N) cin >> w[i] >> v[i];
+
+    vector<vector<ll>> dp(N + 1, vector<ll>(100001, LINF));
+
+    dp[0][0] = 0;
+
+    rep(i, N) rep(j, 100001) {
+        if (j - v[i] >= 0)
+            dp[i + 1][j] = min(dp[i][j], dp[i][j - v[i]] + w[i]);
+        else
+            dp[i + 1][j] = dp[i][j];
+    }
+
+    rrep(i, 100001) {
+        if (dp[N][i] <= W) {
+            cout << i << endl;
+            break;
+        }
+    }
 
     return 0;
 }
