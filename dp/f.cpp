@@ -26,16 +26,23 @@ int main() {
 
     vector<vector<string>> dp(s.length() + 1, vector<string>(t.length() + 1, ""));
 
-    rep(i, 1, s.length() + 1) rep(j, 1, t.length() + 1) {
+    rep(i, 0, s.length()) rep(j, 0, t.length()) {
         if (s[i] == t[j])
-            dp[i][j] = dp[i - 1][j - 1] + s[i];
+            dp[i + 1][j + 1] = dp[i][j] + s[i];
         else {
-            if (dp[i - 1][j].length() > dp[i][j - 1].length())
-                dp[i][j] = dp[i - 1][j];
+            if (dp[i][j + 1].length() > dp[i + 1][j].length())
+                dp[i + 1][j + 1] = dp[i][j + 1];
             else
-                dp[i][j] = dp[i][j - 1];
+                dp[i + 1][j + 1] = dp[i + 1][j];
         }
     }
+
+    // rep(i, s.length() + 1) {
+    //     rep(j, t.length() + 1) {
+    //         cout << dp[i][j] << " ";
+    //     }
+    //     cout << endl;
+    // }
 
     cout << dp[s.length()][t.length()] << endl;
 
