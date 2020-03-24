@@ -21,6 +21,25 @@ const ll LINF = 1e18;
 
 
 int main() {
+    string s;
+    cin >> s;
+
+    if (
+        s[0] < '0' || s[0] > '9' ||
+        s[1] < '0' || s[1] > '9' ||
+        s[2] < '0' || s[2] > '9'
+    ) {
+        cout << "error" << endl;
+        return 0;
+    }
+
+    int num;
+    num =
+        (s[0] - '0') * 100 + 
+        (s[1] - '0') * 10 + 
+        (s[2] - '0') * 1;
+
+    cout << num * 2 << endl;
 
     return 0;
 }

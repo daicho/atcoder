@@ -21,6 +21,42 @@ const ll LINF = 1e18;
 
 
 int main() {
+    int n;
+    cin >> n;
+
+    vector<int> a(n);
+    rep(i, n)
+        cin >> a[i];
+
+    int x = -1; // 多い方
+    int y = -1; // 少ない方
+
+    sort(all(a));
+
+    rep(i, n) {
+        if (x != -1 && y == -1) {
+            if (a[i] == i + 1) {
+                y = a[i] - 1;
+                break;
+            }
+        } else if (x == -1 && y != -1) {
+            if (a[i] == i + 1) {
+                x = a[i];
+                break;
+            }
+        } else {
+            if (a[i] == i)
+                x = a[i];
+            else if (a[i] == i + 2)
+                y = a[i] - 1;
+        }
+    }
+
+    if (x != -1 && y == -1) y = n;
+    if (x == -1 && y == -1)
+        cout << "Correct" << endl;
+    else
+        cout << x << " " << y << endl;
 
     return 0;
 }

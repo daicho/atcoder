@@ -21,6 +21,12 @@ const ll LINF = 1e18;
 
 
 int main() {
+    vector<int> a(6);
+    rep(i, 6)
+        cin >> a[i];
+
+    sort(all(a));
+    cout << a[3];
 
     return 0;
 }

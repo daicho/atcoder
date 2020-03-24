@@ -24,20 +24,7 @@ int main() {
     int n;
     cin >> n;
 
-    vector<ll> a(n);
-    rep(i, n)
-        cin >> a[i];
-
-    int cur = a[0];
-    rep(i, n - 1) {
-        if (a[i + 1] < a[i]) {
-            cout << "down " << a[i] - a[i + 1] << endl;
-        } else if (a[i + 1] > a[i]) {
-            cout << "up " << a[i + 1] - a[i] << endl;
-        } else {
-            cout << "stay" << endl;
-        }
-    }
+    
 
     return 0;
 }

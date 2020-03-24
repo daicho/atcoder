@@ -21,6 +21,54 @@ const ll LINF = 1e18;
 
 
 int main() {
+    int n, q;
+    cin >> n >> q;
+
+    vector<vector<bool>> f(n, vector<bool>(n, false));
+
+    rep(i, q) {
+        char c;
+        cin >> c;
+
+        if (c == '1') {
+            int a, b;
+            cin >> a >> b;
+
+            f[a - 1][b - 1] = true;
+        } else if (c == '2') {
+            int a;
+            cin >> a;
+
+            rep(j, n) {
+                if (j == a - 1) continue;
+                if (f[j][a - 1])
+                    f[a - 1][j] = true;
+            }
+        } else if (c == '3') {
+            int a;
+            cin >> a;
+
+            vector<bool> temp(n);
+            rep(j, n)
+                temp[j] = f[a - 1][j];
+
+            rep(j, n) {
+                if (j == a - 1 || !temp[j]) continue;
+
+                rep(q, n) {
+                    if (q == a - 1) continue;
+                    if (f[j][q])
+                        f[a - 1][q] = true;
+                }
+            }
+        }
+    }
+
+    rep(i, n) {
+        rep(j, n)
+            cout << (f[i][j] ? "Y" : "N");
+        cout << endl;
+    }
 
     return 0;
 }

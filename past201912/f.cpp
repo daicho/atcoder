@@ -21,6 +21,38 @@ const ll LINF = 1e18;
 
 
 int main() {
+    string s;
+    cin >> s;
+
+    vector<string> ss;
+    string temp = "";
+
+    bool stat = false;
+
+    for(auto c : s) {
+        if (c >= 'A' && c <= 'Z') {
+            temp.push_back(c + 'a' - 'A');
+
+            if (stat) {
+                stat = false;
+                ss.push_back(temp);
+                temp = "";
+            } else {
+                stat = true;
+            }
+        } else {
+            temp.push_back(c);
+        }
+    }
+
+    sort(all(ss));
+
+    for(auto tss : ss) {
+        tss[0] += 'A' - 'a';
+        tss[tss.length() - 1] += 'A' - 'a';
+        cout << tss;
+    }
+    cout << endl;
 
     return 0;
 }
