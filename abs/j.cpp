@@ -26,6 +26,23 @@ const ll LINF = 1e18;
 
 
 int main() {
+    int n;
+    cin >> n;
+
+    vector<int> t(n + 1, 0), x(n + 1, 0), y(n + 1, 0);
+    rep(i, 1, n + 1) cin >> t[i] >> x[i] >> y[i];
+
+    rep(i, n) {
+        if (x[i + 1] - x[i] + y[i + 1] - y[i] > t[i + 1] - t[i]) {
+            cout << "No" << endl;
+            return 0;
+        } else if ((x[i + 1] - x[i] + y[i + 1] - y[i] - (t[i + 1] - t[i])) % 2) {
+            cout << "No" << endl;
+            return 0;
+        }
+    }
+
+    cout << "Yes" << endl;
 
     return 0;
 }

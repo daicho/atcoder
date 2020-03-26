@@ -26,6 +26,25 @@ const ll LINF = 1e18;
 
 
 int main() {
+    int n;
+    cin >> n;
+
+    vector<int> a(n);
+    rep(i, n) cin >> a[i];
+
+    sort(rrng(a));
+
+    int sum1 = 0;
+    int sum2 = 0;
+
+    rep(i, n) {
+        if (i % 2)
+            sum2 += a[i];
+        else
+            sum1 += a[i];
+    }
+
+    cout << (sum1 - sum2) << endl;
 
     return 0;
 }

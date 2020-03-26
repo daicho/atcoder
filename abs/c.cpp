@@ -26,6 +26,36 @@ const ll LINF = 1e18;
 
 
 int main() {
+    int n;
+    cin >> n;
+
+    vector<ll> a(n);
+    rep(i, n) cin >> a[i];
+
+    int cnt = 0;
+
+    while (true) {
+        bool f = true;
+
+        rep(i, n) {
+            if (a[i] % 2) {
+                f = false;
+                break;
+            }
+        }
+
+        if (f) {
+            rep(i, n) {
+                a[i] /= 2;
+            }
+
+            cnt++;
+        } else {
+            break;
+        }
+    }
+
+    cout << cnt << endl;
 
     return 0;
 }

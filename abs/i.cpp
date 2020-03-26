@@ -26,6 +26,30 @@ const ll LINF = 1e18;
 
 
 int main() {
+    string s;
+    cin >> s;
+
+    vector<string> smp = {"dream", "dreamer", "erase", "eraser"};
+
+    while (true) {
+        if (s.substr(0, 8) == "dreamera") {
+            s = s.substr(5);
+        } else if (s.substr(0, 7) == "dreamer") {
+            s = s.substr(7);
+        } else if (s.substr(0, 6) == "eraser") {
+            s = s.substr(6);
+        } else if (s.substr(0, 5) == "dream" || s.substr(0, 5) == "erase") {
+            s = s.substr(5);
+        } else {
+            cout << "NO" << endl;
+            return 0;
+        }
+
+        if (s == "")
+            break;
+    }
+
+    cout << "YES" << endl;
 
     return 0;
 }

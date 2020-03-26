@@ -26,6 +26,25 @@ const ll LINF = 1e18;
 
 
 int main() {
+    int n, a, b;
+    cin >> n >> a >> b;
+
+    int cnt = 0;
+
+    rep(i, 1, n + 1) {
+        int sum = 0;
+        int temp = i;
+
+        rep(j, 5) {
+            sum += temp % 10;
+            temp /= 10;
+        }
+
+        if (sum >= a && sum <= b)
+            cnt += i;
+    }
+
+    cout << cnt << endl;
 
     return 0;
 }

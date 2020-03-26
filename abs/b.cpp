@@ -26,6 +26,14 @@ const ll LINF = 1e18;
 
 
 int main() {
+    string s;
+    cin >> s;
+
+    int cnt = 0;
+    rep(i, 3)
+        if (s[i] == '1') cnt++;
+
+    cout << cnt << endl;
 
     return 0;
 }

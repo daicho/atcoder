@@ -26,6 +26,21 @@ const ll LINF = 1e18;
 
 
 int main() {
+    ll n, y;
+    cin >> n >> y;
+
+    rep(i, n + 1) {
+        rep(j, n + 1 - i) {
+            int k = n - i - j;
+
+            if (i * 10000 + j * 5000 + k * 1000 == y) {
+                printf("%d %d %d\n", i, j, k);
+                return 0;
+            }
+        }
+    }
+
+    cout << "-1 -1 -1" << endl;
 
     return 0;
 }

@@ -26,6 +26,13 @@ const ll LINF = 1e18;
 
 
 int main() {
+    ll a, b;
+    cin >> a >> b;
+
+    if (a * b % 2)
+        cout << "Odd" << endl;
+    else
+        cout << "Even" << endl;
 
     return 0;
 }
