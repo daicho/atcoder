@@ -19,24 +19,33 @@
 #define debug(x) cerr << #x << " = " << x << endl
 
 using namespace std;
-
-using ll = long long int;
-
-using vi = vector<int>;
-using vl = vector<ll>;
-using vs = vector<string>;
-
-using vvi = vector<vector<int>>;
-using vvl = vector<vector<ll>>;
-using vvs = vector<vector<string>>;
+using ll = long long;
 
 const int INF = 1e9;
 const ll LINF = 1e18;
 
-inline void yn(bool f) { cout << (f ? "Yes" : "No") << endl; }
-
 
 int main() {
+    ll n, x, y;
+    cin >> n >> x >> y;
+
+    vector<ll> dx(n), dy(n);
+    rep(i, n) {
+        dx[i] = abs(x - 1 - i);
+        dy[i] = abs(y - 1 - i);
+    }
+
+    vector<vector<ll>> dist(n, vector<ll>(n));
+    vector<ll> ans(n + 1, 0);
+    rep(i, n - 1) {
+        rep(j, i, n) {
+            dist[i][j] = min(min((ll)abs(i - j), dx[i] + dy[j] + 1), dx[j] + dy[i] + 1);
+            ans[dist[i][j]]++;
+        }
+    }
+
+    rep(i, 1, n)
+        cout << ans[i] << endl;
 
     return 0;
 }

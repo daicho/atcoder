@@ -16,27 +16,22 @@
 #define rng(v) v.begin(), v.end()
 #define rrng(v) v.rbegin(), v.rend()
 
+#define yn cout << "Yes" << endl; else cout << "No" << endl;
+
 #define debug(x) cerr << #x << " = " << x << endl
 
 using namespace std;
-
-using ll = long long int;
-
-using vi = vector<int>;
-using vl = vector<ll>;
-using vs = vector<string>;
-
-using vvi = vector<vector<int>>;
-using vvl = vector<vector<ll>>;
-using vvs = vector<vector<string>>;
+using ll = long long;
 
 const int INF = 1e9;
 const ll LINF = 1e18;
 
-inline void yn(bool f) { cout << (f ? "Yes" : "No") << endl; }
-
 
 int main() {
+    string s;
+    cin >> s;
+
+    if (s[2] == s[3] && s[4] == s[5]) yn;
 
     return 0;
 }

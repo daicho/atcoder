@@ -26,6 +26,14 @@ const ll LINF = 1e18;
 
 
 int main() {
+    int n, m;
+    cin >> n >> m;
+
+    vector<string> s(m); 
+    vector<ll> c(m);
+    rep(i, m) cin >> s[i] >> c[i];
+
+    
 
     return 0;
 }

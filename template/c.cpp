@@ -19,10 +19,21 @@
 #define debug(x) cerr << #x << " = " << x << endl
 
 using namespace std;
-using ll = long long;
+
+using ll = long long int;
+
+using vi = vector<int>;
+using vl = vector<ll>;
+using vs = vector<string>;
+
+using vvi = vector<vector<int>>;
+using vvl = vector<vector<ll>>;
+using vvs = vector<vector<string>>;
 
 const int INF = 1e9;
 const ll LINF = 1e18;
+
+inline void yn(bool f) { cout << (f ? "Yes" : "No") << endl; }
 
 
 int main() {

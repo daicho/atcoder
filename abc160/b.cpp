@@ -19,24 +19,29 @@
 #define debug(x) cerr << #x << " = " << x << endl
 
 using namespace std;
-
-using ll = long long int;
-
-using vi = vector<int>;
-using vl = vector<ll>;
-using vs = vector<string>;
-
-using vvi = vector<vector<int>>;
-using vvl = vector<vector<ll>>;
-using vvs = vector<vector<string>>;
+using ll = long long;
 
 const int INF = 1e9;
 const ll LINF = 1e18;
 
-inline void yn(bool f) { cout << (f ? "Yes" : "No") << endl; }
-
 
 int main() {
+    ll x;
+    cin >> x;
+
+    ll sum = 0;
+
+    ll a, b;
+
+    a = x / 500;
+    x -= a * 500;
+    sum += a * 1000;
+
+    b = x / 5;
+    x -= b * 5;
+    sum += b * 5;
+
+    cout << sum << endl;
 
     return 0;
 }
