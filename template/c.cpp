@@ -25,10 +25,12 @@ using ll = long long int;
 using vi = vector<int>;
 using vl = vector<ll>;
 using vs = vector<string>;
+using vb = vector<bool>;
 
 using vvi = vector<vector<int>>;
 using vvl = vector<vector<ll>>;
 using vvs = vector<vector<string>>;
+using vvb = vector<vector<bool>>;
 
 const int INF = 1e9;
 const ll LINF = 1e18;
