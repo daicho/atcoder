@@ -41,6 +41,17 @@ inline void yn(bool f) { cout << (f ? "Yes" : "No") << endl; }
 
 
 int main() {
+    ll x;
+    cin >> x;
+
+    ll a = 100;
+    ll cnt = 0;
+    while (a < x) {
+        a *= 1.01;
+        cnt++;
+    }
+
+    cout << cnt << endl;
 
     return 0;
 }

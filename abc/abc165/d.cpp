@@ -41,6 +41,20 @@ inline void yn(bool f) { cout << (f ? "Yes" : "No") << endl; }
 
 
 int main() {
+    ll a, b, n;
+    cin >> a >> b >> n;
+
+    ll ma = 0;
+    ll tt = 0;
+    rep(i, min((ll)1000000, n)) {
+        ll t = (ll)(a * i / b) - a * (ll)(i / b);
+        if (t > ma) {
+            ma = t;
+            tt = i;
+        }
+    }
+
+    cout << ma << ", " << tt << endl;
 
     return 0;
 }
