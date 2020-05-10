@@ -42,38 +42,20 @@ inline void yn(bool f) { cout << (f ? "Yes" : "No") << endl; }
 
 
 int main() {
-    int n, m;
-    cin >> n >> m;
+    int n;
+    cin >> n;
+    vi s(n);
+    rep(i, n) cin >> s[i];
+    int q;
+    cin >> q;
+    vi t(q);
+    rep(i, q) cin >> t[i];
 
-    vvb f(n, vb(n, false));
-    rep(i, m) {
-        int x, y;
-        cin >> x >> y;
-        f[x - 1][y - 1] = true;
-    }
+    int cnt = 0;
+    rep(i, q)
+        if (binary_search(rng(s), t[i])) cnt++;
 
-    int ans = 0;
-
-    rep(i, 1 << n) {
-        bool flag = true;
-
-        rep(j, n - 1) {
-            rep(k, j + 1, n) {
-                if (bit(i, j) && bit(i, k) && !f[j][k]) {
-                    flag = false;
-                    break;
-                }
-            }
-        }
-
-        if (flag) {
-            int cnt = 0;
-            rep(j, n) cnt += bit(i, j);
-            umax(ans, cnt);
-        }
-    }
-
-    cout << ans << endl;
+    cout << cnt << endl;
 
     return 0;
 }

@@ -22,6 +22,7 @@
 #define fi first
 #define se second
 
+#define pt(x) cout << (x) << endl;
 #define shv(v) for (auto __t1 : v) cerr << __t1 << " "; cerr << endl;
 #define db(x) cerr << #x << ": " << (x) << endl;
 #define dbv(v) cerr << #v << ": "; shv(v);
@@ -57,41 +58,56 @@ const ll LINF = 1e18;
 const ll MOD = 1e9 + 7;
 
 inline int gi() { int x; cin >> x; return x; }
-inline ll gl() { ll x; cin >> x; return x; }
+inline ll gl() { int x; cin >> x; return x; }
+inline char gc() { char x; cin >> x; return x; }
 inline string gs() { string x; cin >> x; return x; }
 
 inline vi gvi(int n) { vi v(n); rep(i, n) cin >> v[i]; return v; }
 inline vl gvl(int n) { vl v(n); rep(i, n) cin >> v[i]; return v; }
+inline vc gvc(int n) { vc v(n); rep(i, n) cin >> v[i]; return v; }
 inline vs gvs(int n) { vs v(n); rep(i, n) cin >> v[i]; return v; }
 
+inline vvi gvvi(int h, int w) { vvi m(h, vi(w)); rep(i, h) rep(j, w) cin >> m[i][j]; return m; }
+inline vvl gvvl(int h, int w) { vvl m(h, vl(w)); rep(i, h) rep(j, w) cin >> m[i][j]; return m; }
+inline vvc gvvc(int h, int w) { vvc m(h, vc(w)); rep(i, h) rep(j, w) cin >> m[i][j]; return m; }
+inline vvs gvvs(int h, int w) { vvs m(h, vs(w)); rep(i, h) rep(j, w) cin >> m[i][j]; return m; }
+
+inline void yn(bool f) { cout << (f ? "Yes" : "No") << endl; }
+
+
+int m, n;
+
+int dfs(vvi& v, int x, int y, vvb& e) {
+    e[y][x] = true;
+    int ret = 0;
+    rep(i, -1, 2) {
+        rep(j, -1, 2) {
+            if ((i && j) || (!i && !j)) continue;
+            if (v[y + i][x + j] && !e[y + i][x + j])
+                umax(ret, dfs(v, x + j, y + i, e));
+        }
+    }
+    e[y][x] = false;
+    return ret + 1;
+}
 
 int main() {
-    ll n = gl(), m = gl();
-    vl h = gvl(n);
+    m = gi(), n = gi();
+    vvi v(n + 2, vi(m + 2, 0));
+    rep(i, 1, n + 1) rep(j, 1, m + 1)
+        cin >> v[i][j];
+    dbm(v);
 
-    vl a(m), b(m);
-    rep(i, m) {
-        cin >> a[i] >> b[i];
-        a[i]--;
-        b[i]--;
-    }
-
-    vb f(n, true);
-    rep(i, m) {
-        if (h[a[i]] <= h[b[i]])
-            f[a[i]] = false;
-        if (h[a[i]] >= h[b[i]])
-            f[b[i]] = false;
-    }
-
-    ll cnt = 0;
-    rep(i, n) {
-        if (f[i]) {
-            cnt++;
+    int ans = 0;
+    rep(i, 1, n + 1) {
+        rep(j, 1, m + 1) {
+            vvb e(n + 2, vb(m + 2, false));
+            if (v[i][j])
+                umax(ans, dfs(v, j, i, e));
         }
     }
 
-    cout << cnt << endl;
+    pt(ans);
 
     return 0;
 }

@@ -57,41 +57,50 @@ const ll LINF = 1e18;
 const ll MOD = 1e9 + 7;
 
 inline int gi() { int x; cin >> x; return x; }
-inline ll gl() { ll x; cin >> x; return x; }
+inline ll gl() { int x; cin >> x; return x; }
+inline char gc() { char x; cin >> x; return x; }
 inline string gs() { string x; cin >> x; return x; }
 
 inline vi gvi(int n) { vi v(n); rep(i, n) cin >> v[i]; return v; }
 inline vl gvl(int n) { vl v(n); rep(i, n) cin >> v[i]; return v; }
+inline vc gvc(int n) { vc v(n); rep(i, n) cin >> v[i]; return v; }
 inline vs gvs(int n) { vs v(n); rep(i, n) cin >> v[i]; return v; }
 
+inline vvi gvvi(int h, int w) { vvi m(h, vi(w)); rep(i, h) rep(j, w) cin >> m[i][j]; return m; }
+inline vvl gvvl(int h, int w) { vvl m(h, vl(w)); rep(i, h) rep(j, w) cin >> m[i][j]; return m; }
+inline vvc gvvc(int h, int w) { vvc m(h, vc(w)); rep(i, h) rep(j, w) cin >> m[i][j]; return m; }
+inline vvs gvvs(int h, int w) { vvs m(h, vs(w)); rep(i, h) rep(j, w) cin >> m[i][j]; return m; }
+
+inline void yn(bool f) { cout << (f ? "Yes" : "No") << endl; }
+
+
+void dfs(vvi& g, vi& cnt, int p, vi& ans) {
+    for (auto t : g[p]) {
+        if (ans[t] != -1) continue;
+        ans[t] = ans[p] + cnt[t];
+        dfs(g, cnt, t, ans);
+    }
+}
 
 int main() {
-    ll n = gl(), m = gl();
-    vl h = gvl(n);
-
-    vl a(m), b(m);
-    rep(i, m) {
-        cin >> a[i] >> b[i];
-        a[i]--;
-        b[i]--;
+    int n = gi(), q = gi();
+    vi cnt(n, 0);
+    vvi g(n);
+    rep(i, 1, n) {
+        int a = gi(), b = gi();
+        g[a - 1].push_back(b - 1);
+        g[b - 1].push_back(a - 1);
     }
-
-    vb f(n, true);
-    rep(i, m) {
-        if (h[a[i]] <= h[b[i]])
-            f[a[i]] = false;
-        if (h[a[i]] >= h[b[i]])
-            f[b[i]] = false;
+    rep(i, q) {
+        int p = gi(), x = gi();
+        cnt[p - 1] += x;
     }
-
-    ll cnt = 0;
-    rep(i, n) {
-        if (f[i]) {
-            cnt++;
-        }
-    }
-
-    cout << cnt << endl;
+    vi ans(n, -1);
+    ans[0] = cnt[0];
+    dfs(g, cnt, 0, ans);
+    for (auto t : ans)
+        cout << t << " ";
+    cout << endl;
 
     return 0;
 }

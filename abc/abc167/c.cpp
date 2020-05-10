@@ -84,6 +84,40 @@ inline void yn(bool f) { cout << (f ? "Yes" : "No") << endl; }
 
 
 int main() {
+    int n = gi(), m = gi(), x = gi();
+    vi c(n);
+    vvi a(n, vi(m));
+    rep(i, n) {
+        cin >> c[i];
+        rep(j, m) {
+            cin >> a[i][j];
+        }
+    }
+    int ans = INF;
+    rep(i, 1 << n) {
+        int sum = 0;
+        vi r(m, 0);
+        rep(j, n) {
+            if (bit(i, j)) {
+                sum += c[j];
+                rep(k, m) {
+                    r[k] += a[j][k];
+                }
+            }
+        }
+        bool f = true;
+        rep(k, m)
+            if (r[k] < x) {
+                f = false;
+                break;
+            }
+        if (f) umin(ans, sum);
+    }
+
+    if (ans == INF)
+        {pt(-1);}
+    else
+       { pt(ans);}
 
     return 0;
 }

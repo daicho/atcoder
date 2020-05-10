@@ -42,38 +42,35 @@ inline void yn(bool f) { cout << (f ? "Yes" : "No") << endl; }
 
 
 int main() {
-    int n, m;
-    cin >> n >> m;
+    int n;
+    cin >> n;
+    vi p(n), q(n);
+    rep(i, n) cin >> p[i], p[i]--;
+    rep(i, n) cin >> q[i], q[i]--;
 
-    vvb f(n, vb(n, false));
-    rep(i, m) {
-        int x, y;
-        cin >> x >> y;
-        f[x - 1][y - 1] = true;
+    vi fact(n + 1);
+    fact[0] = 1;
+    rep(i, 1, n + 1)
+        fact[i] = fact[i - 1] * i;
+
+    int a = 0, b = 0;
+    vi x, y;
+
+    rep(i, n) {
+        x.push_back(i);
+        y.push_back(i);
     }
 
-    int ans = 0;
-
-    rep(i, 1 << n) {
-        bool flag = true;
-
-        rep(j, n - 1) {
-            rep(k, j + 1, n) {
-                if (bit(i, j) && bit(i, k) && !f[j][k]) {
-                    flag = false;
-                    break;
-                }
-            }
-        }
-
-        if (flag) {
-            int cnt = 0;
-            rep(j, n) cnt += bit(i, j);
-            umax(ans, cnt);
-        }
+    rep(i, n) {
+        auto r = find(rng(x), p[i]);
+        auto s = find(rng(y), q[i]);
+        a += fact[n - i - 1] * (r - x.begin());
+        b += fact[n - i - 1] * (s - y.begin());
+        x.erase(r);
+        y.erase(s);
     }
 
-    cout << ans << endl;
+    cout << abs(a - b) << endl;
 
     return 0;
 }

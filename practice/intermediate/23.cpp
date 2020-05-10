@@ -2,12 +2,12 @@
 
 #define select(_1, _2, x, ...) x
 
-#define repn(i, n) for (int i = 0; i < (n); i++)
-#define repr(i, a, b) for (int i = (a); i < (b); i++)
+#define repn(i, n) for (ll i = 0; i < (n); i++)
+#define repr(i, a, b) for (ll i = (a); i < (b); i++)
 #define rep(i, ...) select(__VA_ARGS__, repr, repn)(i, __VA_ARGS__)
 
-#define rrepn(i, n) for (int i = (n - 1); i >= 0; i--)
-#define rrepr(i, a, b) for (int i = (b - 1); i >= (a); i--)
+#define rrepn(i, n) for (ll i = (n - 1); i >= 0; i--)
+#define rrepr(i, a, b) for (ll i = (b - 1); i >= (a); i--)
 #define rrep(i, ...) select(__VA_ARGS__, rrepr, rrepn)(i, __VA_ARGS__)
 
 #define umax(m, x) (m = max(m, x))
@@ -42,37 +42,26 @@ inline void yn(bool f) { cout << (f ? "Yes" : "No") << endl; }
 
 
 int main() {
-    int n, m;
+    ll n, m;
     cin >> n >> m;
+    vl p(n);
+    rep(i, n) cin >> p[i];
+    p.push_back(0);
+    n++;
 
-    vvb f(n, vb(n, false));
-    rep(i, m) {
-        int x, y;
-        cin >> x >> y;
-        f[x - 1][y - 1] = true;
-    }
-
-    int ans = 0;
-
-    rep(i, 1 << n) {
-        bool flag = true;
-
-        rep(j, n - 1) {
-            rep(k, j + 1, n) {
-                if (bit(i, j) && bit(i, k) && !f[j][k]) {
-                    flag = false;
-                    break;
-                }
-            }
-        }
-
-        if (flag) {
-            int cnt = 0;
-            rep(j, n) cnt += bit(i, j);
-            umax(ans, cnt);
+    vl p2;
+    rep(i, n) {
+        rep(j, i, n) {
+            if (p[i] + p[j] <= m)
+                p2.push_back(p[i] + p[j]);
         }
     }
 
+    sort(rng(p2));
+
+    ll ans = 0;
+    for (auto t : p2)
+        umax(ans, t + *(upper_bound(rng(p2), m - t) - 1));
     cout << ans << endl;
 
     return 0;

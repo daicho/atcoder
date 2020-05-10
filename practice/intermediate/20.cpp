@@ -42,36 +42,24 @@ inline void yn(bool f) { cout << (f ? "Yes" : "No") << endl; }
 
 
 int main() {
-    int n, m;
-    cin >> n >> m;
+    int n;
+    cin >> n;
+    vl a(n), b(n), c(n);
+    rep(i, n) cin >> a[i];
+    rep(i, n) cin >> b[i];
+    rep(i, n) cin >> c[i];
 
-    vvb f(n, vb(n, false));
-    rep(i, m) {
-        int x, y;
-        cin >> x >> y;
-        f[x - 1][y - 1] = true;
-    }
+    sort(rng(a));
+    sort(rng(b));
+    sort(rng(c));
 
-    int ans = 0;
+    vl cb(n + 1, 0);
+    rrep(i, n)
+        cb[i] = cb[i + 1] + (c.end() - upper_bound(rng(c), b[i]));
 
-    rep(i, 1 << n) {
-        bool flag = true;
-
-        rep(j, n - 1) {
-            rep(k, j + 1, n) {
-                if (bit(i, j) && bit(i, k) && !f[j][k]) {
-                    flag = false;
-                    break;
-                }
-            }
-        }
-
-        if (flag) {
-            int cnt = 0;
-            rep(j, n) cnt += bit(i, j);
-            umax(ans, cnt);
-        }
-    }
+    ll ans = 0;
+    rep(i, n)
+        ans += cb[upper_bound(rng(b), a[i]) - b.begin()];
 
     cout << ans << endl;
 

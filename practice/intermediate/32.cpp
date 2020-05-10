@@ -22,6 +22,7 @@
 #define fi first
 #define se second
 
+#define pt(x) cout << (x) << endl;
 #define shv(v) for (auto __t1 : v) cerr << __t1 << " "; cerr << endl;
 #define db(x) cerr << #x << ": " << (x) << endl;
 #define dbv(v) cerr << #v << ": "; shv(v);
@@ -57,41 +58,24 @@ const ll LINF = 1e18;
 const ll MOD = 1e9 + 7;
 
 inline int gi() { int x; cin >> x; return x; }
-inline ll gl() { ll x; cin >> x; return x; }
+inline ll gl() { int x; cin >> x; return x; }
+inline char gc() { char x; cin >> x; return x; }
 inline string gs() { string x; cin >> x; return x; }
 
 inline vi gvi(int n) { vi v(n); rep(i, n) cin >> v[i]; return v; }
 inline vl gvl(int n) { vl v(n); rep(i, n) cin >> v[i]; return v; }
+inline vc gvc(int n) { vc v(n); rep(i, n) cin >> v[i]; return v; }
 inline vs gvs(int n) { vs v(n); rep(i, n) cin >> v[i]; return v; }
+
+inline vvi gvvi(int m, int n) { vvi v(n, vi(m)); rep(i, n) rep(j, m) cin >> v[i][j]; return v; }
+inline vvl gvvl(int m, int n) { vvl v(n, vl(m)); rep(i, n) rep(j, m) cin >> v[i][j]; return v; }
+inline vvc gvvc(int m, int n) { vvc v(n, vc(m)); rep(i, n) rep(j, m) cin >> v[i][j]; return v; }
+inline vvs gvvs(int m, int n) { vvs v(n, vs(m)); rep(i, n) rep(j, m) cin >> v[i][j]; return v; }
+
+inline void yn(bool f) { cout << (f ? "Yes" : "No") << endl; }
 
 
 int main() {
-    ll n = gl(), m = gl();
-    vl h = gvl(n);
-
-    vl a(m), b(m);
-    rep(i, m) {
-        cin >> a[i] >> b[i];
-        a[i]--;
-        b[i]--;
-    }
-
-    vb f(n, true);
-    rep(i, m) {
-        if (h[a[i]] <= h[b[i]])
-            f[a[i]] = false;
-        if (h[a[i]] >= h[b[i]])
-            f[b[i]] = false;
-    }
-
-    ll cnt = 0;
-    rep(i, n) {
-        if (f[i]) {
-            cnt++;
-        }
-    }
-
-    cout << cnt << endl;
 
     return 0;
 }
