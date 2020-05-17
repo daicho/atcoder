@@ -59,6 +59,14 @@ inline bool umin(T& m, U x) { if (m > x) { m = x; return true; } return false; }
 
 
 int main() {
+    int k;
+    string s;
+    cin >> k >> s;
+    if (siz(s) <= k)
+        prt(s);
+    else {
+        prt(s.substr(0, k) + "...");
+    }
 
     return 0;
 }

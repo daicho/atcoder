@@ -30,14 +30,11 @@ using namespace std;
 using ll = long long int;
 using ld = long double;
 using pii = pair<int, int>;
-using pll = pair<ll, ll>;
 using vi = vector<int>;
 using vl = vector<ll>;
 using vb = vector<bool>;
 using vc = vector<char>;
 using vs = vector<string>;
-using vpii = vector<pii>;
-using vpll = vector<pll>;
 using vvi = vector<vector<int>>;
 using vvl = vector<vector<ll>>;
 using vvb = vector<vector<bool>>;
@@ -50,60 +47,57 @@ const ll MOD = 1e9 + 7;
 const int DX[4] = {1, 0, -1, 0};
 const int DY[4] = {0, 1, 0, -1};
 
-inline void yn(bool f) { cout << (f ? "Yes" : "No") << endl; }
-template<typename T> inline void prt(T x) { cout << (x) << endl; }
-template<typename T> inline void prtv(T& v) { for (auto t : v) cout << t << " "; cout << endl; }
-template<typename T> inline void prtl(T& v) { for (auto t : v) cout << t << endl; }
-template<typename T> inline T pop(stack<T>& x) { T t = x.top(); x.pop(); return t; }
-template<typename T> inline T pop(queue<T>& x) { T t = x.front(); x.pop(); return t; }
-template<typename T> inline T pop(priority_queue<T>& x) { T t = x.top(); x.pop(); return t; }
-template<typename T> inline int sz(T& x) { return x.size(); }
+template<typename T> inline int siz(T& x) { return x.size(); }
 template<typename T> inline ll pow2(T n) { return 1ll << n; }
 template<typename T, typename U> inline int bit(T x, U n) { return x >> n & 1; }
-
+template<typename T> inline void prt(T x) { cout << x << endl; }
 template<typename T, typename U>
 inline void getv(T& v, U n) { v = T(n); rep(i, n) cin >> v[i]; }
 template<typename T, typename U>
-inline void inv(T& v, U n) { v = T(n); rep(i, n) { cin >> v[i]; v[i]--; } }
+inline bool umax(T& m, U x) { if (m < x) { m = x; return true; } return false; }
 template<typename T, typename U>
-inline void getm(T& v, U r, U c) { v = T(r); rep(i, r) getv(v[i], c); }
-template<typename T, typename U>
-inline void inm(T& v, U r, U c) { v = T(r); rep(i, r) inv(v[i], c); }
-template<typename T, typename U>
-inline bool cmax(T& m, U x) { if (m < x) { m = x; return true; } return false; }
-template<typename T, typename U>
-inline bool cmin(T& m, U x) { if (m > x) { m = x; return true; } return false; }
+inline bool umin(T& m, U x) { if (m > x) { m = x; return true; } return false; }
 
 
 int main() {
-    int dx[2][6] = {{-1, -1, -1, 0, 0, 1}, {-1, 0, 0, 1, 1, 1}};
-    int dy[2][6] = {{-1, 0, 1, -1, 1, 0}, {0, -1, 1, -1, 0, 1}};
-    int w, h;
-    cin >> w >> h;
-    vvi m(h + 2, vi(w + 2, 0));
-    rep(i, 1, h + 1) rep(j, 1, w + 1) cin >> m[i][j];
-    vvb e(h + 2, vb(w + 2, false));
-    int ans = 0;
-    queue<pii> q;
-    q.push(mp(0, 0));
-    e[0][0] = true;
-    while (!q.empty()) {
-        auto t = pop(q);
-        rep(i, 6) {
-            int x = dx[t.se % 2][i] + t.fi;
-            int y = dy[t.se % 2][i] + t.se;
-            if (x < 0 || x > w + 1 || y < 0 || y > h + 1) continue;
-            if (m[y][x] == 0) {
-                if (!e[y][x]) {
-                    e[y][x] = true;
-                    q.push(mp(x, y));
+    int n, k;
+    cin >> n >> k;
+    vi p(n, -1);
+    rep(i, k) {
+        int a, b;
+        cin >> a >> b;
+        p[a - 1] = b - 1;
+    }
+    vvl dp(n, vl(3, 0));
+    vvl dp2(n, vl(3, 0));
+    if (p[0] != -1) {
+        dp[0][p[0]] = 1;
+        dp2[0][p[0]] = 1;
+    } else {
+        rep(i, 3) dp[0][i] = 1;
+        rep(i, 3) dp2[0][i] = 1;
+    }
+    
+    rep(i, n - 1) {
+        if (p[i + 1] != -1) {
+            rep(j, 3) {
+                dp[i + 1][p[i + 1]] += (j == p[i + 1]) ? dp2[i][j] : dp[i][j];
+                dp2[i + 1][p[i + 1]] += (j == p[i + 1]) ? 0 : dp[i][j];
+                dp[i + 1][p[i + 1]] %= 10000;
+                dp2[i + 1][p[i + 1]] %= 10000;
+            }
+        } else {
+            rep(j, 3) {
+                rep(k, 3) {
+                    dp[i + 1][j] += (j == k) ? dp2[i][k] : dp[i][k];
+                    dp2[i + 1][j] += (j == k) ? 0 : dp[i][k];
+                    dp[i + 1][j] %= 10000;
+                    dp2[i + 1][j] %= 10000;
                 }
-            } else {
-                ans++;
             }
         }
     }
-    prt(ans);
+    prt((dp[n - 1][0] + dp[n - 1][1] + dp[n - 1][2]) % 10000);
 
     return 0;
 }

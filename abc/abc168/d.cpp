@@ -59,6 +59,48 @@ inline bool umin(T& m, U x) { if (m > x) { m = x; return true; } return false; }
 
 
 int main() {
+    int n, m;
+    cin >> n >> m;
+    vi a(m), b(m);
+    vvi r(m);
+    rep(i, m) {
+        cin >> a[i] >> b[i];
+        a[i]--;
+        b[i]--;
+        r[a[i]].pb(b[i]);
+        r[b[i]].pb(a[i]);
+    }
+    vb e(n, false);
+    e[0] = true;
+    queue<tuple<int, int, int>> q;
+    q.push(mt(0, 0, -1));
+    vi aaa(n, -1);
+    while (!q.empty()) {
+        auto t = q.front(); q.pop();
+        auto st = get<0>(t);
+        auto nd = get<1>(t);
+        auto rd = get<2>(t);
+        rep(i, siz(r[st])) {
+            if (e[r[st][i]]) continue;
+            e[r[st][i]] = true;
+            aaa[r[st][i]] = st;
+            q.push(mt(r[st][i], nd + 1, st));
+        }
+    }
+    bool f = true;
+    rep(i, n) {
+        if (!e[i]) {
+            f = false;
+            break;
+        }
+    }
+    if (!f) {
+        prt("No");
+        return 0;
+    } else {
+        prt("Yes");
+        rep(i, 1, n) prt(aaa[i] + 1);
+    }
 
     return 0;
 }

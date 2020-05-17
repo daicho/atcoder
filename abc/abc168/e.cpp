@@ -58,7 +58,41 @@ template<typename T, typename U>
 inline bool umin(T& m, U x) { if (m > x) { m = x; return true; } return false; }
 
 
+uintmax_t combination(unsigned int n, unsigned int r) {
+  if ( r * 2 > n ) r = n - r;
+  uintmax_t dividend = 1;
+  uintmax_t divisor  = 1;
+  for ( unsigned int i = 1; i <= r; ++i ) {
+    dividend *= (n-i+1);
+    divisor  *= i;
+  }
+  return dividend / divisor;
+}
+
 int main() {
+    ll n;
+    cin >> n;
+    vector<ld> a(n), b(n);
+    vector<ld> t(n);
+    rep(i, n) {
+        cin >> a[i] >> b[i];
+        t[i] = a[i] / b[i];
+    }
+    sort(rng(t));
+    ll ans = 0;
+    ll temp = 0;
+    rep(i, n) {
+        auto l = lower_bound(rng(t), -b[i] / a[i]);
+        auto u = upper_bound(rng(t), -b[i] / a[i]);
+        auto l2 = lower_bound(rng(t), a[i] / b[i]);
+        auto u2 = upper_bound(rng(t), a[i] / b[i]);
+        dbg(u - l);
+        dbg(u2 - l2 - 1);
+        temp += (u - l) * pow2(n - i - 2) - (pow2(u2 - l2 - 1) - 1) * pow2(n - i - 2 - (u2 - l2 - 1));
+        dbg(temp);
+        t.erase(lower_bound(rng(t), a[i] / b[i]));
+    }
+    prt(pow2(n) - temp - 1);
 
     return 0;
 }

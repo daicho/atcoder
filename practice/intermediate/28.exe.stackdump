@@ -1,9 +1,0 @@
-Exception: STATUS_ACCESS_VIOLATION at eip=00401366
-eax=00000000 ebx=80066970 ecx=800666D8 edx=00000013 esi=80051C63 edi=0063CC40
-ebp=0063CBF8 esp=0063CB50 program=C:\Users\Daichi\Git\atcoder\practice\intermediate\28.exe, pid 946, thread main
-cs=0023 ds=002B es=002B fs=0053 gs=002B ss=002B
-Stack trace:
-Frame     Function  Args
-0063CBF8  00401366 (80051C63, 0063CC40, 0063CD08, 6100AB0A)
-0063CD08  6100AB0A (00000000, 0063CD64, 61009AA0, 00000000)
-End of stack trace

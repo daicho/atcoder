@@ -59,6 +59,20 @@ inline bool umin(T& m, U x) { if (m > x) { m = x; return true; } return false; }
 
 
 int main() {
+    int n, m;
+    cin >> n >> m;
+    vi d(n); getv(d);
+    vi c(m); getv(c);
+    vvi dp(m + 1, vi(n + 1));
+    rep(i, m) {
+        repp(j, 0, n) {
+            if (i <= j) {
+                dp[i + 1][j] = -1;
+            } else {
+                dp[i + 1][j];
+            }
+        }
+    }
 
     return 0;
 }

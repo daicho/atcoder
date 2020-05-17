@@ -59,6 +59,33 @@ inline bool umin(T& m, U x) { if (m > x) { m = x; return true; } return false; }
 
 
 int main() {
+    string s;
+    cin >> s;
+    int n = s[siz(s) - 1] - '0';
+    switch (n)
+    {
+    case 2:
+    case 4:
+    case 5:
+    case 7:
+    case 9:
+        prt("hon");
+        break;
+    
+    case 0:
+    case 1:
+    case 6:
+    case 8:
+        prt("pon");
+        break;
+    
+    case 3:
+        prt("bon");
+        break;
+    
+    default:
+        break;
+    }
 
     return 0;
 }

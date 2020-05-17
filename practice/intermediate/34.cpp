@@ -76,64 +76,17 @@ inline bool cmin(T& m, U x) { if (m > x) { m = x; return true; } return false; }
 
 
 int main() {
-    while (true) {
-        int w, h;
-        cin >> w >> h;
-        if (w == 0 && h == 0) break;
-        vector<vvi> m(h, vvi(w, vi(4, 0)));
-        rep(i, w) {
-            m[0][i][3] = 1;
-            m[h - 1][i][1] = 1;
-        }
-        rep(j, h) {
-            m[j][0][2] = 1;
-            m[j][w - 1][0] = 1;
-        }
-        rep(i, (2 * h - 1)) {
-            if (i % 2 == 0) {
-                rep(j, w - 1) {
-                    int wall;
-                    cin >> wall;
-                    if (wall) {
-                        m[i / 2][j][0] = 1;
-                        m[i / 2][j + 1][2] = 1;
-                    }
-                }
-            } else {
-                rep(j, w) {
-                    int wall;
-                    cin >> wall;
-                    if (wall) {
-                        m[i / 2][j][1] = 1;
-                        m[i / 2 + 1][j][3] = 1;
-                    }
-                }
-            }
-        }
-        vvb e(h, vb(w, false));
-        queue<pair<pii, int>> q;
-        q.push(mp(mp(0, 0), 1));
-        e[0][0] = true;
-        int ans = 0;
-        while (!q.empty()) {
-            auto t = pop(q);
-            rep(i, 4) {
-                if (m[t.fi.se][t.fi.fi][i] == 0) {
-                    int x = DX[i] + t.fi.fi;
-                    int y = DY[i] + t.fi.se;
-                    if (e[y][x]) continue;
-                    if (x == w - 1 && y == h - 1) {
-                        ans = t.se + 1;
-                        break;
-                    }
-                    e[y][x] = true;
-                    q.push(mp(mp(x, y), t.se + 1));
-                }
-            }
-            if (ans) break;
-        }
-        prt(ans);
+    int n;
+    cin >> n;
+    if (n <= 1) {
+        prt(1);
+        return 0;
     }
+    vl f(n + 1, 1);
+    repp(i, 2, n) {
+        f[i] = f[i - 1] + f[i - 2];
+    }
+    prt(f[n]);
 
     return 0;
 }

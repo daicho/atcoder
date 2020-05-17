@@ -59,6 +59,22 @@ inline bool umin(T& m, U x) { if (m > x) { m = x; return true; } return false; }
 
 
 int main() {
+    double pi = acos(-1);
+    int a, b, h, m;
+    cin >> a >> b >> h >> m;
+    double ma = (m / 60.0) * 2 * pi;
+    double mx = b * cos(ma);
+    double my = b * sin(ma);
+    double ha = ((h / 12.0) + (m / 60.0 / 12.0)) * 2 * pi;
+    double hx = a * cos(ha);
+    double hy = a * sin(ha);
+    dbg(ma);
+    dbg(ha);
+    dbg(mx);
+    dbg(my);
+    dbg(hx);
+    dbg(hy);
+    cout << fixed << setprecision(15) << (sqrt(pow(mx - hx, 2) + pow(my - hy, 2))) << endl;
 
     return 0;
 }

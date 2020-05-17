@@ -21,10 +21,10 @@
 #define se second
 #define rng(v) (v).begin(), (v).end()
 #define rrng(v) (v).rbegin(), (v).rend()
-#define _shwv(v) for (auto _t1 : v) cerr << _t1 << " "; cerr << endl;
+#define _shv(v) for (auto _t1 : v) cerr << _t1 << " "; cerr << endl;
 #define dbg(x) cerr << #x << ": " << (x) << endl;
-#define dbgv(v) cerr << #v << ": "; _shwv(v);
-#define dbgm(m) cerr << #m << ":" << endl; for (auto _t2 : m) { _shwv(_t2); }
+#define dbgv(v) cerr << #v << ": "; _shv(v);
+#define dbgm(m) cerr << #m << ":" << endl; for (auto _t2 : m) { _shv(_t2); }
 
 using namespace std;
 using ll = long long int;
@@ -59,6 +59,29 @@ inline bool umin(T& m, U x) { if (m > x) { m = x; return true; } return false; }
 
 
 int main() {
+    int d, n;
+    cin >> d >> n;
+    vi t(d); getv(t);
+    vi a(n), b(n), c(n);
+    rep(i, n) cin >> a[i] >> b[i] >> c[i];
+    vvi dp(d + 1, vi(n, 0));
+    rep(i, d) {
+        rep(j, n) {
+            if (t[i] < a[j] || t[i] > b[j]) {
+                dp[i + 1][j] = -1;
+            } else if (i == 0) {
+                dp[i + 1][j] = 0;
+            } else {
+                rep(k, n) {
+                    if (dp[i][k] == -1) continue;
+                    umax(dp[i + 1][j], dp[i][k] + abs(c[j] - c[k]));
+                }
+            }
+        }
+    }
+    int ans = 0;
+    rep(i, n) umax(ans, dp[d][i]);
+    prt(ans);
 
     return 0;
 }

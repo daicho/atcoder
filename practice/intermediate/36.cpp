@@ -30,14 +30,11 @@ using namespace std;
 using ll = long long int;
 using ld = long double;
 using pii = pair<int, int>;
-using pll = pair<ll, ll>;
 using vi = vector<int>;
 using vl = vector<ll>;
 using vb = vector<bool>;
 using vc = vector<char>;
 using vs = vector<string>;
-using vpii = vector<pii>;
-using vpll = vector<pll>;
 using vvi = vector<vector<int>>;
 using vvl = vector<vector<ll>>;
 using vvb = vector<vector<bool>>;
@@ -50,25 +47,10 @@ const ll MOD = 1e9 + 7;
 const int DX[4] = {1, 0, -1, 0};
 const int DY[4] = {0, 1, 0, -1};
 
-inline void yn(bool f) { cout << (f ? "Yes" : "No") << endl; }
-template<typename T> inline void prt(T x) { cout << (x) << endl; }
-template<typename T> inline void prtv(T& v) { for (auto t : v) cout << t << " "; cout << endl; }
-template<typename T> inline void prtl(T& v) { for (auto t : v) cout << t << endl; }
-template<typename T> inline T pop(stack<T>& x) { T t = x.top(); x.pop(); return t; }
-template<typename T> inline T pop(queue<T>& x) { T t = x.front(); x.pop(); return t; }
-template<typename T> inline T pop(priority_queue<T>& x) { T t = x.top(); x.pop(); return t; }
+template<typename T> inline void prt(T x) { cout << x << endl; }
 template<typename T> inline int sz(T& x) { return x.size(); }
 template<typename T> inline ll pow2(T n) { return 1ll << n; }
 template<typename T, typename U> inline int bit(T x, U n) { return x >> n & 1; }
-
-template<typename T, typename U>
-inline void getv(T& v, U n) { v = T(n); rep(i, n) cin >> v[i]; }
-template<typename T, typename U>
-inline void inv(T& v, U n) { v = T(n); rep(i, n) { cin >> v[i]; v[i]--; } }
-template<typename T, typename U>
-inline void getm(T& v, U r, U c) { v = T(r); rep(i, r) getv(v[i], c); }
-template<typename T, typename U>
-inline void inm(T& v, U r, U c) { v = T(r); rep(i, r) inv(v[i], c); }
 template<typename T, typename U>
 inline bool cmax(T& m, U x) { if (m < x) { m = x; return true; } return false; }
 template<typename T, typename U>
@@ -76,34 +58,19 @@ inline bool cmin(T& m, U x) { if (m > x) { m = x; return true; } return false; }
 
 
 int main() {
-    int dx[2][6] = {{-1, -1, -1, 0, 0, 1}, {-1, 0, 0, 1, 1, 1}};
-    int dy[2][6] = {{-1, 0, 1, -1, 1, 0}, {0, -1, 1, -1, 0, 1}};
-    int w, h;
-    cin >> w >> h;
-    vvi m(h + 2, vi(w + 2, 0));
-    rep(i, 1, h + 1) rep(j, 1, w + 1) cin >> m[i][j];
-    vvb e(h + 2, vb(w + 2, false));
-    int ans = 0;
-    queue<pii> q;
-    q.push(mp(0, 0));
-    e[0][0] = true;
-    while (!q.empty()) {
-        auto t = pop(q);
-        rep(i, 6) {
-            int x = dx[t.se % 2][i] + t.fi;
-            int y = dy[t.se % 2][i] + t.se;
-            if (x < 0 || x > w + 1 || y < 0 || y > h + 1) continue;
-            if (m[y][x] == 0) {
-                if (!e[y][x]) {
-                    e[y][x] = true;
-                    q.push(mp(x, y));
-                }
-            } else {
-                ans++;
-            }
+    int n, l;
+    cin >> n >> l;
+    vi v(n), w(n);
+    rep(i, n) cin >> v[i] >> w[i];
+    vi dp(l + 1);
+    repp(i, l) {
+        dp[i] = dp[i - 1];
+        rep(j, n) {
+            if (i >= w[j])
+                cmax(dp[i], dp[i - w[j]] + v[j]);
         }
     }
-    prt(ans);
+    prt(dp[l]);
 
     return 0;
 }
