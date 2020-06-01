@@ -59,6 +59,28 @@ inline bool umin(T& m, U x) { if (m > x) { m = x; return true; } return false; }
 
 
 int main() {
+    while (true) {
+        int n, m; cin >> n >> m;
+        if (n == 0 && m == 0) break;
+        vi c(m); getv(c);
+        vi x(n); getv(x);
+        vvi dp(n + 1, vi(256, INF));
+        dp[0][128] = 0;
+        rep(i, n) {
+            rep(j, 256) {
+                if (dp[i][j] == INF) continue;
+                rep(k, m) {
+                    int t = j + c[k];
+                    if (t < 0) t = 0;
+                    if (t > 255) t = 255;
+                    umin(dp[i + 1][t], dp[i][j] + pow(x[i] - t, 2));
+                }
+            }
+        }
+        int ans = INF;
+        rep(i, 256) umin(ans, dp[n][i]);
+        prt(ans);
+    }
 
     return 0;
 }

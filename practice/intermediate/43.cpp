@@ -59,6 +59,30 @@ inline bool umin(T& m, U x) { if (m > x) { m = x; return true; } return false; }
 
 
 int main() {
+    int m, n;
+    m = 5;
+    cin >> n;
+    vs s(m);
+    rep(i, m) cin >> s[i];
+    string c = "RBW#";
+    vvi dp(n + 1, vi(3));
+    rep(i, n) {
+        rep(j, 3) {
+            int cnt = 0;
+            rep(k, m) {
+                if (s[k][i] != c[j]) cnt++;
+            }
+            dp[i + 1][j] = INF;
+            rep(k, 3) {
+                if (j == k) continue;
+                umin(dp[i + 1][j], dp[i][k] + cnt);
+            }
+        }
+    }
+    dbgm(dp);
+    int ans = INF;
+    rep(i, 3) umin(ans, dp[n][i]);
+    prt(ans);
 
     return 0;
 }

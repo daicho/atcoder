@@ -63,16 +63,20 @@ int main() {
     cin >> n >> m;
     vi d(n); getv(d);
     vi c(m); getv(c);
-    vvi dp(m + 1, vi(n + 1));
+    vvi dp(m + 1, vi(n + 1, 0));
+    repp(i, n)
+        dp[0][i] = INF;
     rep(i, m) {
-        repp(j, 0, n) {
-            if (i <= j) {
-                dp[i + 1][j] = -1;
+        rep(j, n) {
+            if (i < j) {
+                dp[i + 1][j + 1] = INF;
             } else {
-                dp[i + 1][j];
+                dp[i + 1][j + 1] = min(dp[i][j + 1], dp[i][j] + d[j] * c[i]);
             }
         }
     }
+    dbgm(dp);
+    prt(dp[m][n]);
 
     return 0;
 }

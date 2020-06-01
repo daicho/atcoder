@@ -8,14 +8,14 @@
             "name": "g++.exe - アクティブ ファイルのビルドとデバッグ",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+            "program": "${fileDirname}/${fileBasenameNoExtension}.exe",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
             "externalConsole": true,
             "MIMode": "gdb",
-            "miDebuggerPath": "C:\\Cygwin\\bin\\gdb.exe",
+            "miDebuggerPath": "C:/Cygwin/bin/gdb.exe",
             "setupCommands": [
                 {
                     "description": "gdb の再フォーマットを有効にする",

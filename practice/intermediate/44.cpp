@@ -59,6 +59,30 @@ inline bool umin(T& m, U x) { if (m > x) { m = x; return true; } return false; }
 
 
 int main() {
+    vi n;
+    int m = 0;
+    while (true) {
+        int a; cin >> a;
+        if (a == 0) break;
+        umax(m, a);
+        n.pb(a);
+    }
+    vi dp(m + 1, 0);
+    vi dp2(m + 1, 0);
+    repp(i, m) {
+        dp[i] = INF;
+        dp2[i] = INF;
+        repp(j, INF) {
+            ll num = j * (j + 1) * (j + 2) / 6;
+            if (i < num) break;
+            umin(dp[i], dp[i - num] + 1);
+            if (num % 2 == 1)
+                umin(dp2[i], dp2[i - num] + 1);
+        }
+    }
+    for (auto t : n) {
+        cout << dp[t] << " " << dp2[t] << endl;
+    }
 
     return 0;
 }

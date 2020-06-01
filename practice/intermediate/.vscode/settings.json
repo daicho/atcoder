@@ -3,6 +3,8 @@
         "iostream": "cpp",
         "random": "cpp",
         "ostream": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "xstring": "cpp",
+        "tuple": "cpp"
     }
 }
