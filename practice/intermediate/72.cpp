@@ -60,7 +60,37 @@ template<typename T> inline void dbgn(string n, vector<T>& v) { cerr << n << ": 
 template<typename T> inline void dbgn(string n, vv<T>& m) { cerr << n << ":" << endl; for (auto& v: m) errv(v); }
 
 
+ll inverse(ll x, ll mod) {
+    ll ret = 1;
+    ll t = mod - 2;
+    while (t) {
+        if (t & 1 == 1)
+            ret = (ret * x) % mod;
+        x = (x * x) % mod;
+        t >>= 1;
+    }
+    return ret;
+}
+
 int main() {
+    int w, h;
+    cin >> w >> h;
+
+    ll ans = 1;
+    repp(i, w + h - 2)
+        ans = (ans * i) % MOD;
+
+    ll t = 1;
+
+    repp(i, w - 1)
+        t = (t * i) % MOD;
+
+    repp(i, h - 1)
+        t = (t * i) % MOD;
+
+    ans = (ans * inverse(t, MOD)) % MOD;
+
+    prt(ans);
 
     return 0;
 }
