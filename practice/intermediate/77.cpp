@@ -78,6 +78,23 @@ template<ll mod> struct mint {
 
 
 int main() {
+    int n, m;
+    cin >> n >> m;
+    vi s(n - 1);
+    rep(i, n - 1) cin >> s[i];
+    vi a(m);
+    rep(i, m) cin >> a[i];
+    vi r(n, 0);
+    rep(i, n - 1) r[i + 1] = r[i] + s[i];
+
+    mint<100000> ans = 0;
+    int cur = 0;
+    rep(i, m) {
+        ans += abs(r[cur + a[i]] - r[cur]);
+        cur += a[i];
+    }
+
+    prt(ans);
 
     return 0;
 }

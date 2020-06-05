@@ -59,23 +59,6 @@ template<typename T> inline void dbgn(string n, T x) { cerr << n << ": " << x <<
 template<typename T> inline void dbgn(string n, vector<T>& v) { cerr << n << ": "; errv(v); }
 template<typename T> inline void dbgn(string n, vv<T>& m) { cerr << n << ":" << endl; for (auto& v: m) errv(v); }
 
-template<ll mod> struct mint {
-    ll x;
-    mint(ll x = 0): x((x + mod) % mod) { }
-    mint operator+(mint a) { return mint(*this) += a; }
-    mint operator-(mint a) { return mint(*this) -= a; }
-    mint operator*(mint a) { return mint(*this) *= a; }
-    mint operator/(mint a) { return mint(*this) /= a; }
-    mint& operator+=(mint a) { if ((x += a.x) >= mod) x -= mod; return *this; }
-    mint& operator-=(mint a) { if ((x += mod - a.x) >= mod) x -= mod; return *this; }
-    mint& operator*=(mint a) { (x *= a.x) %= mod; return *this; }
-    mint& operator/=(mint a) { return *this *= a.inv(); }
-    mint pow(ll t) { mint a = x, ret = 1; while (t) { if (t & 1) ret *= a; a *= a; t >>= 1; } return ret; }
-    mint inv() { return pow(mod - 2); }
-    friend istream& operator>>(istream& is, mint& a) { return is >> a.x; }
-    friend ostream& operator<<(ostream& os, mint& a) { return os << a.x; }
-};
-
 
 int main() {
 

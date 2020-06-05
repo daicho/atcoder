@@ -78,6 +78,16 @@ template<ll mod> struct mint {
 
 
 int main() {
+    int n, k;
+    cin >> n >> k;
+
+    mint<MOD> ans = 1;
+    rep(i, n, n + k)
+        ans *= i;
+    repp(i, k)
+        ans /= i;
+
+    prt(ans);
 
     return 0;
 }
