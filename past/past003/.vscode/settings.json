@@ -3,7 +3,6 @@
         "iostream": "cpp",
         "random": "cpp",
         "ostream": "cpp",
-        "vector": "cpp",
-        "queue": "cpp"
+        "vector": "cpp"
     }
 }

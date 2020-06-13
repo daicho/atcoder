@@ -4,7 +4,7 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
-                "C:/Cygwin/lib/gcc/i686-pc-cygwin/7.4.0/include/c++/i686-pc-cygwin"
+                "C:/Cygwin/lib/gcc/i686-pc-cygwin/9.3.0/include/c++/i686-pc-cygwin"
             ],
             "defines": [
                 "_DEBUG",

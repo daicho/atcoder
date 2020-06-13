@@ -61,6 +61,7 @@ inline bool umin(T& m, U x) { if (m > x) { m = x; return true; } return false; }
 int main() {
     string s, t;
     cin >> s >> t;
+
     int diff = 'A' - 'a';
     bool flag = true;
     rep(i, 3) {

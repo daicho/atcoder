@@ -61,6 +61,34 @@ template<typename T> inline void dbgn(string n, vv<T>& m) { cerr << n << ":" << 
 
 
 int main() {
+    int m, n;
+    cin >> m >> n;
+
+    int k;
+    cin >> k;
+
+    vs s(m);
+    rep(i, m) cin >> s[i];
+
+    vvi tj(m + 1, vi(n + 1, 0));
+    vvi to(m + 1, vi(n + 1, 0));
+    vvi ti(m + 1, vi(n + 1, 0));
+    rep(i, m) {
+        rep(j, n) {
+            tj[i + 1][j + 1] = tj[i][j + 1] + tj[]
+            if (s[i][j] == 'J')
+                tj[]
+            if (s[i][j] == 'O')
+            if (s[i][j] == 'I')
+        }
+    }
+
+    rep(i, k) {
+        int a, b, c, d;
+        cin >> a >> b >> c >> d;
+
+
+    }
 
     return 0;
 }
