@@ -1,6 +1,0 @@
-Exception: STATUS_INTEGER_DIVIDE_BY_ZERO at eip=6F56665F
-eax=00000001 ebx=00000000 ecx=00000008 edx=00000000 esi=00000000 edi=00000000
-ebp=00000008 esp=0063CB60 program=C:\Users\Daichi\Git\atcoder\abc\abc170\d.exe, pid 520, thread main
-cs=0023 ds=002B es=002B fs=0053 gs=002B ss=002B
-Stack trace:
-Frame     Function  Args
