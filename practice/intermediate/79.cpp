@@ -61,41 +61,37 @@ template<typename T> inline void dbgn(string n, vv<T>& m) { cerr << n << ":" << 
 
 
 int main() {
-    int m, n;
-    cin >> m >> n;
+    int n, m, Q;
+    cin >> n >> m >> Q;
 
-    int k;
-    cin >> k;
+    vi l(m), r(m);
+    vi p(Q), q(Q);
 
-    vs s(m);
-    rep(i, m) cin >> s[i];
+    rep(i, m) cin >> l[i] >> r[i], l[i]--, r[i]--;
+    rep(i, Q) cin >> p[i] >> q[i], p[i]--, q[i]--;
 
-    vvi tj(m + 1, vi(n + 1, 0));
-    vvi to(m + 1, vi(n + 1, 0));
-    vvi ti(m + 1, vi(n + 1, 0));
+    vi tbl(n, 0);
+    vi tbr(n, 0);
     rep(i, m) {
-        rep(j, n) {
-            tj[i + 1][j + 1] = tj[i][j + 1] + tj[i + 1][j] - tj[i][j];
-            to[i + 1][j + 1] = to[i][j + 1] + to[i + 1][j] - to[i][j];
-            ti[i + 1][j + 1] = ti[i][j + 1] + ti[i + 1][j] - ti[i][j];
-            if (s[i][j] == 'J')
-                tj[i + 1][j + 1]++;
-            if (s[i][j] == 'O')
-                to[i + 1][j + 1]++;
-            if (s[i][j] == 'I')
-                ti[i + 1][j + 1]++;
-        }
+        tbl[l[i]]++;
+        tbr[r[i]]++;
     }
 
-    rep(i, k) {
-        int a, b, c, d;
-        cin >> a >> b >> c >> d;
-
-        cout << (tj[c][d] - (tj[c][b - 1] + tj[a - 1][d] - tj[a - 1][b - 1])) << " ";
-        cout << (to[c][d] - (to[c][b - 1] + to[a - 1][d] - to[a - 1][b - 1])) << " ";
-        cout << (ti[c][d] - (ti[c][b - 1] + ti[a - 1][d] - ti[a - 1][b - 1]));
-        cout << endl;
+    vi tl(n + 1, 0);
+    vi tr(n + 1, 0);
+    rep(i, n) {
+        tl[i + 1] = tl[i] + tbl[i];
+        tr[i + 1] = tr[i] + tbr[i];
     }
+
+    rep(i, Q) {
+        prt(tr[q[i] + 1] - tl[p[i]]);
+    }
+
+    dbg(tbl);
+    dbg(tbr);
+    dbg(tl);
+    dbg(tr);
 
     return 0;
 }
