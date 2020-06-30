@@ -70,7 +70,7 @@ template<ll mod> struct mint {
     mint& operator-=(mint a) { if ((x += mod - a.x) >= mod) x -= mod; return *this; }
     mint& operator*=(mint a) { (x *= a.x) %= mod; return *this; }
     mint& operator/=(mint a) { return *this *= a.inv(); }
-    mint pow(ll t) { mint a = x, ret = 1; while (t) { if (t & 1) ret *= a; a *= a; t >> 1; } return ret; }
+    mint pow(ll t) { mint a = x, ret = 1; while (t) { if (t & 1) ret *= a; a *= a; t >>= 1; } return ret; }
     mint inv() { return pow(mod - 2); }
     friend istream& operator>>(istream& is, mint& a) { return is >> a.x; }
     friend ostream& operator<<(ostream& os, mint& a) { return os << a.x; }
