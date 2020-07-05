@@ -8,12 +8,10 @@ using pll = pair<ll, ll>;
 using vi = vector<int>;
 using vl = vector<ll>;
 using vb = vector<bool>;
-using vc = vector<char>;
 using vs = vector<string>;
 using vvi = vector<vector<int>>;
 using vvl = vector<vector<ll>>;
 using vvb = vector<vector<bool>>;
-using vvc = vector<vector<char>>;
 using vvs = vector<vector<string>>;
 template<typename T> using vv = vector<vector<T>>;
 template<typename T> using vvv = vector<vector<vector<T>>>;
@@ -80,6 +78,84 @@ template<ll mod> struct mint {
 
 
 int main() {
+    ll n, k;
+    cin >> n >> k;
+
+    vl a(n);
+    rep(i, n) cin >> a[i];
+
+    sort(rng(a), [](int i, int j) -> bool { return abs(i) > abs(j); });
+    vl p, m;
+
+    rep(i, k) {
+        if (a[i] >= 0)
+            p.pb(a[i]);
+        else
+            m.pb(a[i]);
+    }
+
+    if (siz(m) % 2 == 0) {
+        mint<MOD> ans = 1;
+
+        for (auto t : p) {
+            ans *= t;
+        }
+
+        for (auto t : m) {
+            ans *= t;
+        }
+
+        prt(ans);
+
+        return 0;
+    }
+
+    bool f1 = true;
+    ll a1, b1, a2, b2;
+    bool f2 = true;
+    rep(i, k, n) {
+        if (f1 && a[i] >= 0) {
+            a1 = m[siz(m) - 1];
+            b1 = a[i];
+            f1 = false;
+        }
+        if (siz(p) > 0 && f2 && a[i] < 0) {
+            a2 = p[siz(p) - 1];
+            b2 = a[i];
+            f2 = false;
+        }
+    }
+
+    if (f1 && f2) {
+        mint<MOD> ans = 1;
+        rep(i, n - k, n) {
+            ans *= a[i];
+        }
+        prt(ans);
+        return 0;
+    } else if (!f1 && !f2) {
+        if (a1 * b2 < a2 * b1) {
+            m[siz(m) - 1] = b1;
+        } else {
+            p[siz(p) - 1] = b2;
+        }
+    } else if (!f1) {
+        m[siz(m) - 1] = b1;
+    } else if (!f2) {
+        p[siz(p) - 1] = b2;
+    }
+
+    mint<MOD> ans = 1;
+
+    for (auto t : p) {
+        ans *= t;
+    }
+
+    for (auto t : m) {
+        ans *= t;
+    }
+
+    prt(ans);
 
     return 0;
 }

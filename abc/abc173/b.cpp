@@ -8,12 +8,10 @@ using pll = pair<ll, ll>;
 using vi = vector<int>;
 using vl = vector<ll>;
 using vb = vector<bool>;
-using vc = vector<char>;
 using vs = vector<string>;
 using vvi = vector<vector<int>>;
 using vvl = vector<vector<ll>>;
 using vvb = vector<vector<bool>>;
-using vvc = vector<vector<char>>;
 using vvs = vector<vector<string>>;
 template<typename T> using vv = vector<vector<T>>;
 template<typename T> using vvv = vector<vector<vector<T>>>;
@@ -61,25 +59,30 @@ template<typename T> inline void dbgn(string n, T x) { cerr << n << ": " << x <<
 template<typename T> inline void dbgn(string n, vector<T>& v) { cerr << n << ": "; errv(v); }
 template<typename T> inline void dbgn(string n, vv<T>& m) { cerr << n << ":" << endl; for (auto& v: m) errv(v); }
 
-template<ll mod> struct mint {
-    ll x;
-    mint(ll x = 0): x((x + mod) % mod) { }
-    mint operator+(mint a) { return mint(*this) += a; }
-    mint operator-(mint a) { return mint(*this) -= a; }
-    mint operator*(mint a) { return mint(*this) *= a; }
-    mint operator/(mint a) { return mint(*this) /= a; }
-    mint& operator+=(mint a) { if ((x += a.x) >= mod) x -= mod; return *this; }
-    mint& operator-=(mint a) { if ((x += mod - a.x) >= mod) x -= mod; return *this; }
-    mint& operator*=(mint a) { (x *= a.x) %= mod; return *this; }
-    mint& operator/=(mint a) { return *this *= a.inv(); }
-    mint pow(ll t) { mint a = x, ret = 1; while (t) { if (t & 1) ret *= a; a *= a; t >>= 1; } return ret; }
-    mint inv() { return pow(mod - 2); }
-    friend istream& operator>>(istream& is, mint& a) { return is >> a.x; }
-    friend ostream& operator<<(ostream& os, mint& a) { return os << a.x; }
-};
-
 
 int main() {
+    int n;
+    cin >> n;
+    vs s(n);
+    rep(i, n) cin >> s[i];
+
+    int a, b, c, d;
+    a = 0;
+    b = 0;
+    c = 0;
+    d = 0;
+
+    rep(i, n) {
+        if (s[i] == "AC") a++;
+        if (s[i] == "WA") b++;
+        if (s[i] == "TLE") c++;
+        if (s[i] == "RE") d++;
+    }
+
+    cout << "AC x " << a << endl;
+    cout << "WA x " << b << endl;
+    cout << "TLE x " << c << endl;
+    cout << "RE x " << d << endl;
 
     return 0;
 }
