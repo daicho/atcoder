@@ -41,8 +41,6 @@ const int DY[4] = {0, 1, 0, -1};
 #define rrepp(i, ...) _sel(__VA_ARGS__, rrepps, rreppn)(i, __VA_ARGS__)
 
 #define pb push_back
-#define mp make_pair
-#define mt make_tuple
 #define fi first
 #define se second
 #define rng(v) (v).begin(), (v).end()
