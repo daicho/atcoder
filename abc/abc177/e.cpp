@@ -61,6 +61,35 @@ template<typename T> inline void dbgn(string n, vv<T>& m) { cerr << n << ":" << 
 
 
 int main() {
+    int n;
+    cin >> n;
+
+    vi a(n);
+    rep(i, n) cin >> a[i];
+
+    vi y(1000001, 0);
+    rep(i, n) {
+        for (int j = 2; j * j <= a[i]; j++) {
+            if (a[i] % j == 0) {
+                y[j]++;
+
+                while (a[i] % j == 0)
+                    a[i] /= j;
+            }
+        }
+        if (a[i] != 1)
+            y[a[i]]++;
+    }
+
+    ll m = *max_element(rng(y));
+
+    if (m <= 1) {
+        prt("pairwise coprime");
+    } else if (m == n) {
+        prt("not coprime");
+    } else {
+        prt("setwise coprime");
+    }
 
     return 0;
 }

@@ -61,6 +61,43 @@ template<typename T> inline void dbgn(string n, vv<T>& m) { cerr << n << ":" << 
 
 
 int main() {
+    ll h, w;
+    cin >> h >> w;
+    vl a(h), b(h);
+    rep(i, h) cin >> a[i] >> b[i], a[i]--, b[i]--;
+
+    vl ans(h, LINF);
+
+    rrep(i, h) {
+        ans[i] = LINF;
+        rep(j, w) {
+            if (j >= a[i] && j <= b[i]) continue;
+
+            ll ci = i - 1;
+            ll cj = j;
+
+            ll cnt = 0;
+
+            while (true) {
+                if (cj < 0) break;
+
+                if (ci < 0) {
+                    umin(ans, cnt);
+                    break;
+                }
+
+                if (cj >= a[ci] && cj <= b[ci]) {
+                    cj--;
+                } else {
+                    ci--;
+                }
+
+                cnt++;
+            }
+        }
+
+        prt(ans);
+    }
 
     return 0;
 }

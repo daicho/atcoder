@@ -8,10 +8,12 @@ using pll = pair<ll, ll>;
 using vi = vector<int>;
 using vl = vector<ll>;
 using vb = vector<bool>;
+using vc = vector<char>;
 using vs = vector<string>;
 using vvi = vector<vector<int>>;
 using vvl = vector<vector<ll>>;
 using vvb = vector<vector<bool>>;
+using vvc = vector<vector<char>>;
 using vvs = vector<vector<string>>;
 template<typename T> using vv = vector<vector<T>>;
 template<typename T> using vvv = vector<vector<vector<T>>>;
@@ -39,8 +41,6 @@ const int DY[4] = {0, 1, 0, -1};
 #define rrepp(i, ...) _sel(__VA_ARGS__, rrepps, rreppn)(i, __VA_ARGS__)
 
 #define pb push_back
-#define mp make_pair
-#define mt make_tuple
 #define fi first
 #define se second
 #define rng(v) (v).begin(), (v).end()

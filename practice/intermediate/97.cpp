@@ -61,6 +61,25 @@ template<typename T> inline void dbgn(string n, vv<T>& m) { cerr << n << ":" << 
 
 
 int main() {
+    ll n, m;
+    cin >> n >> m;
+
+    vl a(n);
+    rep(i, n) cin >> a[i];
+
+    ll hlcd = 1;
+    rep(i, n) {
+        hlcd = lcm(hlcd, a[i] / 2);
+    }
+
+    rep(i, n) {
+        if ((hlcd * 2 / a[i]) % 2 == 0) {
+            prt(0);
+            return 0;
+        }
+    }
+
+    prt((m / hlcd + 1) / 2);
 
     return 0;
 }

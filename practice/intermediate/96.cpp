@@ -61,6 +61,10 @@ template<typename T> inline void dbgn(string n, vv<T>& m) { cerr << n << ":" << 
 
 
 int main() {
+    ll n;
+    cin >> n;
+
+    prt(n * (n - 1) / 2);
 
     return 0;
 }

@@ -61,6 +61,44 @@ template<typename T> inline void dbgn(string n, vv<T>& m) { cerr << n << ":" << 
 
 
 int main() {
+    ll n, m;
+    cin >> n >> m;
+
+    vl a(m), b(m);
+    rep(i, m) cin >> a[i] >> b[i], a[i]--, b[i]--;
+
+    vvl c(n);
+    rep(i, m) {
+        c[a[i]].pb(b[i]);
+        c[b[i]].pb(a[i]);
+    }
+
+    vb f(n, false);
+    ll ans = 0;
+
+    rep(i, n) {
+        if (f[i]) continue;
+        queue<ll> q;
+        q.push(i);
+        f[i] = true;
+
+        ll cnt = 0;
+        while (!q.empty()) {
+            auto t = q.front(); q.pop();
+            cnt++;
+
+            for (auto tt: c[t]) {
+                if (!f[tt]) {
+                    q.push(tt);
+                    f[tt] = true;
+                }
+            }
+        }
+
+        umax(ans, cnt);
+    }
+
+    prt(ans);
 
     return 0;
 }

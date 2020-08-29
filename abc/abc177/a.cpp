@@ -61,6 +61,13 @@ template<typename T> inline void dbgn(string n, vv<T>& m) { cerr << n << ":" << 
 
 
 int main() {
+    ll d, t, s;
+    cin >> d >> t >> s;
+
+    if (d <= s * t)
+        prt("Yes");
+    else
+        prt("No");
 
     return 0;
 }

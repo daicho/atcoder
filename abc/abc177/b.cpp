@@ -61,6 +61,21 @@ template<typename T> inline void dbgn(string n, vv<T>& m) { cerr << n << ":" << 
 
 
 int main() {
+    string s, t;
+    cin >> s >> t;
+
+    ll ans = 0;
+
+    rep(i, siz(s) - siz(t) + 1) {
+        ll cnt = 0;
+        rep(j, siz(t)) {
+            if (s[i + j] == t[j])
+                cnt++;
+        }
+        umax(ans, cnt);
+    }
+
+    prt(siz(t) - ans);
 
     return 0;
 }
