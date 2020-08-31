@@ -61,7 +61,7 @@ template<typename T> inline void dbgn(string n, vv<T>& m) { cerr << n << ":" << 
 
 template<ll mod> struct mint {
     ll x;
-    mint(ll a = 0): x((a + mod) % mod) { }
+    mint(ll x = 0): x((x + mod) % mod) { }
     mint operator+(mint a) { return mint(*this) += a; }
     mint operator-(mint a) { return mint(*this) -= a; }
     mint operator*(mint a) { return mint(*this) *= a; }
@@ -76,20 +76,56 @@ template<ll mod> struct mint {
     friend ostream& operator<<(ostream& os, mint& a) { return os << a.x; }
 };
 
-struct UnionFind {
-    vi p;
-    UnionFind(int n): p(n, -1) { }
-    int root(int x) { if (p[x] < 0) return x; else return p[x] = root(p[x]); }
-    int size(int x) { return -p[root(x)]; }
-    void unite(int x, int y) {
-        int rx = root(x), ry = root(y);
-        if (rx == ry) return; if (p[rx] > p[ry]) swap(rx, ry);
-        p[rx] += p[ry]; p[ry] = rx;
-    }
-};
-
 
 int main() {
+    int n, k;
+    cin >> n >> k;
+
+    repp(i, k) {
+        mint<MOD> ans = 0;
+        mint<MOD> t;
+
+        if (n == k) {
+            if (i == 1)
+                prt(1);
+            else
+                prt(0);
+
+            continue;
+        }
+
+        if (n - k - i + 1 >= 0 && i >= 2) {
+            t = 1;
+            repp(j, n - k - 1) t *= j;
+            repp(j, n - k - i + 1) t /= j;
+            repp(j, i - 2) t /= j;
+            ans += t;
+        }
+
+        if (n - k - i >= 0) {
+            t = 1;
+            repp(j, n - k - 1) t *= j;
+            repp(j, n - k - i) t /= j;
+            repp(j, i - 1) t /= j;
+            ans += t * 2;
+        }
+
+        if (n - k - i - 1 >= 0) {
+            t = 1;
+            repp(j, n - k - 1) t *= j;
+            repp(j, n - k - i - 1) t /= j;
+            repp(j, i) t /= j;
+            ans += t;
+        }
+
+        t = 1;
+        repp(j, k - 1) t *= j;
+        repp(j, k - i) t /= j;
+        repp(j, i - 1) t /= j;
+        ans *= t;
+
+        prt(ans);
+    }
 
     return 0;
 }

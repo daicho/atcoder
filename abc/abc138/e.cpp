@@ -61,7 +61,7 @@ template<typename T> inline void dbgn(string n, vv<T>& m) { cerr << n << ":" << 
 
 template<ll mod> struct mint {
     ll x;
-    mint(ll a = 0): x((a + mod) % mod) { }
+    mint(ll x = 0): x((x + mod) % mod) { }
     mint operator+(mint a) { return mint(*this) += a; }
     mint operator-(mint a) { return mint(*this) -= a; }
     mint operator*(mint a) { return mint(*this) *= a; }
@@ -76,20 +76,39 @@ template<ll mod> struct mint {
     friend ostream& operator<<(ostream& os, mint& a) { return os << a.x; }
 };
 
-struct UnionFind {
-    vi p;
-    UnionFind(int n): p(n, -1) { }
-    int root(int x) { if (p[x] < 0) return x; else return p[x] = root(p[x]); }
-    int size(int x) { return -p[root(x)]; }
-    void unite(int x, int y) {
-        int rx = root(x), ry = root(y);
-        if (rx == ry) return; if (p[rx] > p[ry]) swap(rx, ry);
-        p[rx] += p[ry]; p[ry] = rx;
-    }
-};
-
 
 int main() {
+    string s, t;
+    cin >> s >> t;
+
+    vi last(26, -1);
+    vvi tb(siz(s), vi(26, -1));
+
+    rep(k, 2) {
+        rrep(i, siz(s)) {
+            rep(j, 26) {
+                if (last[j] == -1) continue;
+                tb[i][j] = last[j] - i;
+                if (tb[i][j] <= 0) tb[i][j] += siz(s);
+            }
+            last[s[i] - 'a'] = i;
+        }
+    }
+
+    ll ans = 0;
+    int cur = siz(s) - 1;
+
+    rep(i, siz(t)) {
+        if (tb[cur][t[i] - 'a'] == -1) {
+            prt(-1);
+            return 0;
+        }
+
+        ans += tb[cur][t[i] - 'a'];
+        cur = (cur + tb[cur][t[i] - 'a']) % siz(s);
+    }
+
+    prt(ans);
 
     return 0;
 }
