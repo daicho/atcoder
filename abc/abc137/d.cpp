@@ -92,36 +92,24 @@ struct UnionFind {
 int main() {
     int n, k;
     cin >> n >> k;
-    string s;
-    cin >> s;
+    vi a(n), b(n);
+    rep(i, n) cin >> a[i] >> b[i];
 
-    bool f = true;
-    vi tb;
-    int cnt = 0;
-    for (auto c: s) {
-        if (c == (f ? '1' : '0')) {
-            cnt++;
-        } else {
-            tb.pb(cnt);
-            f = !f;
-            cnt = 1;
-        }
+    map<int, vi> m;
+    rep(i, n) m[a[i]].pb(b[i]);
+
+    pq<int> q;
+    int ans = 0;
+
+    repp(i, k) {
+        for (auto t: m[i])
+            q.push(t);
+
+        if (q.empty()) continue;
+        ans += q.top(); q.pop();
     }
 
-    tb.pb(cnt);
-    if (!f) tb.pb(0);
-
-    vi r(1, 0);
-    for (auto t: tb) {
-        r.pb(r[siz(r) - 1] + t);
-    }
-
-    int ans = -1;
-    for (int i = 0; i < siz(r) - k * 2; i += 2) {
-        umax(ans, r[i + k * 2 + 1] - r[i]);
-    }
-
-    prt((ans == -1) ? siz(s): ans);
+    prt(ans);
 
     return 0;
 }

@@ -90,38 +90,6 @@ struct UnionFind {
 
 
 int main() {
-    int n, k;
-    cin >> n >> k;
-    string s;
-    cin >> s;
-
-    bool f = true;
-    vi tb;
-    int cnt = 0;
-    for (auto c: s) {
-        if (c == (f ? '1' : '0')) {
-            cnt++;
-        } else {
-            tb.pb(cnt);
-            f = !f;
-            cnt = 1;
-        }
-    }
-
-    tb.pb(cnt);
-    if (!f) tb.pb(0);
-
-    vi r(1, 0);
-    for (auto t: tb) {
-        r.pb(r[siz(r) - 1] + t);
-    }
-
-    int ans = -1;
-    for (int i = 0; i < siz(r) - k * 2; i += 2) {
-        umax(ans, r[i + k * 2 + 1] - r[i]);
-    }
-
-    prt((ans == -1) ? siz(s): ans);
 
     return 0;
 }

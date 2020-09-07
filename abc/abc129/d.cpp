@@ -90,38 +90,31 @@ struct UnionFind {
 
 
 int main() {
-    int n, k;
-    cin >> n >> k;
-    string s;
-    cin >> s;
+    int h, w;
+    cin >> h >> w;
+    vvc m(h, vc(w));
+    rep(i, h) rep(j, w) cin >> m[i][j];
 
-    bool f = true;
-    vi tb;
-    int cnt = 0;
-    for (auto c: s) {
-        if (c == (f ? '1' : '0')) {
-            cnt++;
-        } else {
-            tb.pb(cnt);
-            f = !f;
-            cnt = 1;
-        }
+    vector<UnionFind> ufx(h, UnionFind(w));
+    vector<UnionFind> ufy(w, UnionFind(h));
+
+    rep(i, h) rep(j, w - 1) {
+        if (m[i][j] == '.' && m[i][j + 1] == '.')
+            ufx[i].unite(j, j + 1);
     }
 
-    tb.pb(cnt);
-    if (!f) tb.pb(0);
-
-    vi r(1, 0);
-    for (auto t: tb) {
-        r.pb(r[siz(r) - 1] + t);
+    rep(j, w) rep(i, h - 1) {
+        if (m[i][j] == '.' && m[i + 1][j] == '.')
+            ufy[j].unite(i, i + 1);
     }
 
-    int ans = -1;
-    for (int i = 0; i < siz(r) - k * 2; i += 2) {
-        umax(ans, r[i + k * 2 + 1] - r[i]);
+    int ans = 0;
+    rep(i, h) rep(j, w) {
+        if (m[i][j] == '.')
+            umax(ans, ufx[i].size(j) + ufy[j].size(i) - 1);
     }
 
-    prt((ans == -1) ? siz(s): ans);
+    prt(ans);
 
     return 0;
 }
