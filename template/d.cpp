@@ -50,6 +50,7 @@ const int DY[4] = {0, 1, 0, -1};
 #define bit(x, n) ((x) >> (n) & 1)
 #define prt(x) cout << (x) << endl
 #define dbg(x) dbgn(#x, x)
+#define dec() cout << fixed << setprecision(15)
 
 template<typename T, typename U> inline bool umax(T& m, U x) { if (m < x) { m = x; return true; } return false; }
 template<typename T, typename U> inline bool umin(T& m, U x) { if (m > x) { m = x; return true; } return false; }
