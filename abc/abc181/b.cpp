@@ -93,6 +93,20 @@ struct mint {
 
 
 int main() {
+    ll n;
+    cin >> n;
+
+    vl a(n), b(n);
+
+    rep(i, n) cin >> a[i] >> b[i];
+
+    ll ans = 0;
+
+    rep(i, n) {
+        ans += (a[i] + b[i]) * (b[i] - a[i] + 1) / 2;
+    }
+
+    prt(ans);
 
     return 0;
 }

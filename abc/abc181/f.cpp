@@ -93,6 +93,15 @@ struct mint {
 
 
 int main() {
+    ll n;
+    cin >> n;
+
+    vl x(n), y(n);
+    rep(i, n) cin >> x[i] >> y[i];
+
+    dec();
+
+    
 
     return 0;
 }

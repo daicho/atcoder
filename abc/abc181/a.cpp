@@ -93,6 +93,14 @@ struct mint {
 
 
 int main() {
+    ll n;
+    cin >> n;
+
+    if (n % 2 == 0) {
+        prt("White");
+    } else {
+        prt("Black");
+    }
 
     return 0;
 }

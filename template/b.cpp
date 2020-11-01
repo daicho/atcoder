@@ -22,7 +22,6 @@ template<typename T> using pqg = priority_queue<T, vector<T>, greater<T>>;
 
 const int INF = 1e9;
 const ll LINF = 1e18;
-const ll MOD = 1e9 + 7;
 const int DX[4] = {1, 0, -1, 0};
 const int DY[4] = {0, 1, 0, -1};
 
@@ -60,23 +59,6 @@ template<typename T> inline void dbgn(string n, T x) { cerr << n << ": " << x <<
 template<typename T> inline void dbgn(string n, vector<T>& v) { cerr << n << ": "; errv(v); }
 template<typename T> inline void dbgn(string n, vv<T>& m) { cerr << n << ":" << endl; for (auto& v: m) errv(v); }
 
-template<ll mod> struct mint {
-    ll x;
-    mint(ll a = 0): x((a + mod) % mod) { }
-    mint operator+(mint a) { return mint(*this) += a; }
-    mint operator-(mint a) { return mint(*this) -= a; }
-    mint operator*(mint a) { return mint(*this) *= a; }
-    mint operator/(mint a) { return mint(*this) /= a; }
-    mint& operator+=(mint a) { if ((x += a.x) >= mod) x -= mod; return *this; }
-    mint& operator-=(mint a) { if ((x += mod - a.x) >= mod) x -= mod; return *this; }
-    mint& operator*=(mint a) { (x *= a.x) %= mod; return *this; }
-    mint& operator/=(mint a) { return *this *= a.inv(); }
-    mint pow(ll t) { mint a = x, ret = 1; while (t) { if (t & 1) ret *= a; a *= a; t >>= 1; } return ret; }
-    mint inv() { return pow(mod - 2); }
-    friend istream& operator>>(istream& is, mint& a) { return is >> a.x; }
-    friend ostream& operator<<(ostream& os, mint& a) { return os << a.x; }
-};
-
 struct UnionFind {
     vi p;
     UnionFind(int n): p(n, -1) { }
@@ -87,6 +69,26 @@ struct UnionFind {
         if (rx == ry) return; if (p[rx] > p[ry]) swap(rx, ry);
         p[rx] += p[ry]; p[ry] = rx;
     }
+};
+
+ll MOD = 1e9 + 7;
+//ll MOD = 998244353;
+
+struct mint {
+    ll x;
+    mint(ll a = 0): x((a + MOD) % MOD) { }
+    mint operator+(mint a) { return mint(*this) += a; }
+    mint operator-(mint a) { return mint(*this) -= a; }
+    mint operator*(mint a) { return mint(*this) *= a; }
+    mint operator/(mint a) { return mint(*this) /= a; }
+    mint& operator+=(mint a) { if ((x += a.x) >= MOD) x -= MOD; return *this; }
+    mint& operator-=(mint a) { if ((x += MOD - a.x) >= MOD) x -= MOD; return *this; }
+    mint& operator*=(mint a) { (x *= a.x) %= MOD; return *this; }
+    mint& operator/=(mint a) { return *this *= a.inv(); }
+    mint pow(ll t) { mint a = x, ret = 1; while (t) { if (t & 1) ret *= a; a *= a; t >>= 1; } return ret; }
+    mint inv() { return pow(MOD - 2); }
+    friend istream& operator>>(istream& is, mint& a) { return is >> a.x; }
+    friend ostream& operator<<(ostream& os, mint& a) { return os << a.x; }
 };
 
 

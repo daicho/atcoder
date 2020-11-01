@@ -93,6 +93,26 @@ struct mint {
 
 
 int main() {
+    ll n;
+    cin >> n;
+
+    vl x(n), y(n);
+
+    rep(i, n) cin >> x[i] >> y[i];
+
+    rep(i, n - 2) {
+        rep(j, i + 1, n - 1) {
+            rep(k, j + 1, n) {
+                if ((y[j] - y[i]) * (x[k] - x[j]) == (y[k] - y[j]) * (x[j] - x[i])) {
+
+                    prt("Yes");
+                    return 0;
+                }
+            }
+        }
+    }
+
+    prt("No");
 
     return 0;
 }

@@ -93,6 +93,57 @@ struct mint {
 
 
 int main() {
+    string s;
+    cin >> s;
+
+    if (siz(s) == 1) {
+        if (atoi(s.c_str()) % 8 == 0) {
+            prt("Yes");
+        } else {
+            prt("No");
+        }
+
+        return 0;
+    } else if (siz(s) == 2) {
+        if (atoi(s.c_str()) % 8 == 0) {
+            prt("Yes");
+            return 0;
+        }
+
+        if (((s[1] - '0') * 10 + (s[0] - '0')) % 8 == 0) {
+            prt("Yes");
+        } else {
+            prt("No");
+        }
+
+        return 0;
+    }
+
+    for (int i = 0; i < 1000; i += 8) {
+        vl d(3);
+        d[0] = i / 100;
+        d[1] = i / 10 % 10;
+        d[2] = i % 10;
+
+        vb f(3, false);
+
+        for (auto &c: s) {
+            rep(i, 3) {
+                if (f[i]) continue;
+                if (c - '0' == d[i]) {
+                    f[i] = true;
+                    break;
+                }
+            }
+        }
+
+        if (f[0] && f[1] && f[2]) {
+            prt("Yes");
+            return 0;
+        }
+    }
+
+    prt("No");
 
     return 0;
 }

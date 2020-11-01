@@ -93,6 +93,40 @@ struct mint {
 
 
 int main() {
+    ll n, m;
+    cin >> n >> m;
+
+    vl h(n), w(m);
+    rep(i, n) cin >> h[i];
+    rep(i, m) cin >> w[i];
+
+    vl tbl(n / 2 + 1, 0), tbr(n / 2 + 1, 0);
+
+    sort(rng(h));
+
+    rep(i, n / 2) { 
+        tbl[i + 1] = tbl[i] + h[i * 2 + 1] - h[i * 2];
+        tbr[i + 1] = tbr[i] + h[i * 2 + 2] - h[i * 2 + 1];
+    }
+
+    ll ans = LINF;
+
+    rep(i, m) {
+        auto l = lower_bound(rng(h), w[i]);
+        ll pos = l - h.begin();
+
+        ll t = tbl[pos / 2] + tbr[n / 2] - tbr[pos / 2];
+        if (pos % 2 == 0) {
+            t += h[pos] - w[i];
+        } else {
+            t += w[i] - h[pos - 1];
+        }
+
+        umin(ans, t);
+        cerr << i << ": " << t << endl;
+    }
+
+    prt(ans);
 
     return 0;
 }
