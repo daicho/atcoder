@@ -1,0 +1,170 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+using ll = long long int;
+using ld = long double;
+using pii = pair<int, int>;
+using pll = pair<ll, ll>;
+using vi = vector<int>;
+using vl = vector<ll>;
+using vb = vector<bool>;
+using vc = vector<char>;
+using vs = vector<string>;
+using vvi = vector<vector<int>>;
+using vvl = vector<vector<ll>>;
+using vvb = vector<vector<bool>>;
+using vvc = vector<vector<char>>;
+using vvs = vector<vector<string>>;
+template<typename T> using vv = vector<vector<T>>;
+template<typename T> using vvv = vector<vector<vector<T>>>;
+template<typename T> using pq = priority_queue<T>;
+template<typename T> using pqg = priority_queue<T, vector<T>, greater<T>>;
+
+const int INF = 1e9;
+const ll LINF = 1e18;
+const int DX[4] = {1, 0, -1, 0};
+const int DY[4] = {0, 1, 0, -1};
+
+#define _sel(_1, _2, x, ...) x
+#define repn(i, n) for (ll i = 0; i < (n); i++)
+#define reps(i, a, b) for (ll i = (a); i < (b); i++)
+#define rep(i, ...) _sel(__VA_ARGS__, reps, repn)(i, __VA_ARGS__)
+#define reppn(i, n) for (ll i = 1; i <= (n); i++)
+#define repps(i, a, b) for (ll i = (a); i <= (b); i++)
+#define repp(i, ...) _sel(__VA_ARGS__, repps, reppn)(i, __VA_ARGS__)
+#define rrepn(i, n) for (ll i = (n) - 1; i >= 0; i--)
+#define rreps(i, a, b) for (ll i = (b) - 1; i >= (a); i--)
+#define rrep(i, ...) _sel(__VA_ARGS__, rreps, rrepn)(i, __VA_ARGS__)
+#define rreppn(i, n) for (ll i = (n); i >= 1; i--)
+#define rrepps(i, a, b) for (ll i = (b); i >= (a); i--)
+#define rrepp(i, ...) _sel(__VA_ARGS__, rrepps, rreppn)(i, __VA_ARGS__)
+
+#define pb push_back
+#define fi first
+#define se second
+#define rng(v) (v).begin(), (v).end()
+#define rrng(v) (v).rbegin(), (v).rend()
+#define siz(x) int((x).size())
+#define pow2(x) (1ll << (x))
+#define bit(x, n) ((x) >> (n) & 1)
+#define prt(x) cout << (x) << endl
+#define dbg(x) dbgn(#x, x)
+#define dec() cout << fixed << setprecision(15)
+
+template<typename T, typename U> inline bool umax(T& m, U x) { if (m < x) { m = x; return true; } return false; }
+template<typename T, typename U> inline bool umin(T& m, U x) { if (m > x) { m = x; return true; } return false; }
+template<typename T> inline void errv(T& v) { for (auto x: v) cerr << x << " "; cerr << endl; }
+inline void errv(vb& v) { for (auto x: v) cerr << (x ? 1 : 0) << " "; cerr << endl; }
+template<typename T> inline void dbgn(string n, T x) { cerr << n << ": " << x << endl; }
+template<typename T> inline void dbgn(string n, vector<T>& v) { cerr << n << ": "; errv(v); }
+template<typename T> inline void dbgn(string n, vv<T>& m) { cerr << n << ":" << endl; for (auto& v: m) errv(v); }
+
+struct UnionFind {
+    vi p;
+    UnionFind(int n): p(n, -1) { }
+    int root(int x) { if (p[x] < 0) return x; else return p[x] = root(p[x]); }
+    int size(int x) { return -p[root(x)]; }
+    void unite(int x, int y) {
+        int rx = root(x), ry = root(y);
+        if (rx == ry) return; if (p[rx] > p[ry]) swap(rx, ry);
+        p[rx] += p[ry]; p[ry] = rx;
+    }
+};
+
+ll MOD = 1e9 + 7;
+//ll MOD = 998244353;
+
+struct mint {
+    ll x;
+    mint(ll a = 0): x((a + MOD) % MOD) { }
+    mint operator+(mint a) { return mint(*this) += a; }
+    mint operator-(mint a) { return mint(*this) -= a; }
+    mint operator*(mint a) { return mint(*this) *= a; }
+    mint operator/(mint a) { return mint(*this) /= a; }
+    mint& operator+=(mint a) { if ((x += a.x) >= MOD) x -= MOD; return *this; }
+    mint& operator-=(mint a) { if ((x += MOD - a.x) >= MOD) x -= MOD; return *this; }
+    mint& operator*=(mint a) { (x *= a.x) %= MOD; return *this; }
+    mint& operator/=(mint a) { return *this *= a.inv(); }
+    mint pow(ll t) { mint a = x, ret = 1; while (t) { if (t & 1) ret *= a; a *= a; t >>= 1; } return ret; }
+    mint inv() { return pow(MOD - 2); }
+    friend istream& operator>>(istream& is, mint& a) { return is >> a.x; }
+    friend ostream& operator<<(ostream& os, mint& a) { return os << a.x; }
+};
+
+
+ll calc(vvl& dp, vvl& dist, ll b, ll e) {
+    if (dp[b][e] != -2) return dp[b][e];
+    int k = siz(dist);
+    vl t;
+    rep(i, k) if (!bit(b, i)) t.pb(i);
+    if (siz(t) == 1) {
+        return dp[b][e] = 0;
+    }
+    dp[b][e] = INF;
+    for (auto t1 : t) {
+        if (t1 == e) continue;
+        if (calc(dp, dist, b | (1 << e), t1) != -1)
+            umin(dp[b][e], calc(dp, dist, b | (1 << e), t1) + dist[t1][e]);
+    }
+    return dp[b][e];
+}
+
+int main() {
+    ll n, m;
+    cin >> n >> m;
+
+    vvl g(n);
+    rep(i, m) {
+        ll a, b;
+        cin >> a >> b;
+        g[a - 1].pb(b - 1);
+        g[b - 1].pb(a - 1);
+    }
+
+    ll k;
+    cin >> k;
+
+    vl c(k);
+    rep(i, k) cin >> c[i], c[i]--;
+
+    vvl e(k, vl(k, 0));
+    rep(i, k - 1) {
+        rep(j, i + 1, k) {
+            queue<pll> q;
+            vb f(n, false);
+            q.push({c[i], 0});
+            f[c[i]] = true;
+            bool ff = true;
+            while (!q.empty()) {
+                auto t = q.front(); q.pop();
+                for (auto tt: g[t.fi]) {
+                    if (tt == c[j]) {
+                        e[i][j] = t.se + 1;
+                        e[j][i] = t.se + 1;
+                        ff = false;
+                        break;
+                    } else {
+                        if (!f[tt]) {
+                            f[tt] = true;
+                            q.push({tt, t.se + 1});
+                        }
+                    }
+                }
+            }
+            if (ff) {
+                e[i][j] = -1;
+                return 0;
+            }
+        }
+    }
+
+    ll ans = LINF;
+    vvl dp(pow2(k), vl(k, -2));
+
+    rep(i, k)
+        umin(ans, calc(dp, e, 0, i));
+
+    prt(ans);
+
+    return 0;
+}
