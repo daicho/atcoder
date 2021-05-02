@@ -44,7 +44,7 @@ const int DY[4] = {0, 1, 0, -1};
 #define se second
 #define rng(v) (v).begin(), (v).end()
 #define rrng(v) (v).rbegin(), (v).rend()
-#define siz(x) int((x).size())
+#define siz(x) ll((x).size())
 #define pow2(x) (1ll << (x))
 #define bit(x, n) ((x) >> (n) & 1)
 #define prt(x) cout << (x) << endl
@@ -61,11 +61,11 @@ template<typename T> inline void dbgn(string n, vv<T>& m) { cerr << n << ":" << 
 
 struct UnionFind {
     vi p;
-    UnionFind(int n): p(n, -1) { }
-    int root(int x) { if (p[x] < 0) return x; else return p[x] = root(p[x]); }
-    int size(int x) { return -p[root(x)]; }
-    void unite(int x, int y) {
-        int rx = root(x), ry = root(y);
+    UnionFind(ll n): p(n, -1) { }
+    ll root(ll x) { if (p[x] < 0) return x; else return p[x] = root(p[x]); }
+    ll size(ll x) { return -p[root(x)]; }
+    void unite(ll x, ll y) {
+        ll rx = root(x), ry = root(y);
         if (rx == ry) return; if (p[rx] > p[ry]) swap(rx, ry);
         p[rx] += p[ry]; p[ry] = rx;
     }
