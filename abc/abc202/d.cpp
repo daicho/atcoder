@@ -93,6 +93,7 @@ struct mint {
 
 vvl memo;
 
+// a個の"a"とb個の"b"を使ってできる文字列の数
 ll calc(ll a, ll b) {
     if (memo[a][b] != -1) return memo[a][b];
     else if (a == 0 || b == 0) return memo[a][b] = 1;
@@ -107,28 +108,23 @@ int main() {
 
     ll cur = k;
 
-    ll aa = a;
-    ll bb = b;
-
-    rep(i, a + b) {
-        if (aa == 0) {
+    while (a + b) {
+        if (a == 0) {
             cout << "b";
-            bb--;
+            b--;
             continue;
-        }
-
-        if (bb == 0) {
+        } else if (b == 0) {
             cout << "a";
-            aa--;
+            a--;
             continue;
         }
 
-        if (calc(aa - 1, bb) > cur) {
-            aa--;
+        if (calc(a - 1, b) > cur) {
+            a--;
             cout << "a";
         } else {
-            cur -= calc(aa - 1, bb);
-            bb--;
+            cur -= calc(a - 1, b);
+            b--;
             cout << "b";
         }
     }
