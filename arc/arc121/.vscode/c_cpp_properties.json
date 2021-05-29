@@ -1,0 +1,24 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "C:/Cygwin/lib/gcc/x86_64-pc-cygwin/10/include",
+                "C:/Cygwin/lib/gcc/x86_64-pc-cygwin/10/include/c++",
+                "C:/Cygwin/lib/gcc/x86_64-pc-cygwin/10/include/c++/x86_64-pc-cygwin"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "windowsSdkVersion": "10.0.16299.0",
+            "compilerPath": "C:/Cygwin/bin/g++.exe",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "gcc-x64"
+        }
+    ],
+    "version": 4
+}
