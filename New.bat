@@ -23,4 +23,4 @@ if %contest_name:~0,3% == abc (
 )
 
 xcopy template %dir_name%%contest_name%\ /d /e > nul
-start chrome %open_url%
+start chrome %open_url% --new-window

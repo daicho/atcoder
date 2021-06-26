@@ -15,16 +15,13 @@ using vvl = vector<vector<ll>>;
 using vvb = vector<vector<bool>>;
 using vvc = vector<vector<char>>;
 using vvs = vector<vector<string>>;
-using vpii = vector<pair<int, int>>;
-using vpll = vector<pair<ll, ll>>;
-
 template<typename T> using vv = vector<vector<T>>;
 template<typename T> using vvv = vector<vector<vector<T>>>;
 template<typename T> using pq = priority_queue<T>;
 template<typename T> using pqg = priority_queue<T, vector<T>, greater<T>>;
 
-const int INF = 1000000000;
-const ll LINF = 1000000000000000000;
+const int INF = 1e9;
+const ll LINF = 1e18;
 const int DX[4] = {1, 0, -1, 0};
 const int DY[4] = {0, 1, 0, -1};
 
@@ -74,7 +71,7 @@ struct UnionFind {
     }
 };
 
-ll MOD = 1000000007;
+ll MOD = 1e9 + 7;
 //ll MOD = 998244353;
 
 struct mint {
@@ -95,7 +92,38 @@ struct mint {
 };
 
 
+ll n;
+vl tab;
+vl a;
+vvb ff;
+vv<mint> memo;
+
+mint split(ll s, ll index) {
+    if (ff[s][index]) return memo[s][index];
+
+    mint ret = 0;
+    rep(i, s + 1, n + 1) {
+        if ((tab[i] - tab[s]) % index == 0) {
+            if (i == n) ret += 1;
+            else ret += split(i, index + 1);
+        }
+    }
+
+    ff[s][index] = true;
+    return memo[s][index] = ret;
+}
+
 int main() {
+    cin >> n;
+    a = vl(n);
+    tab = vl(n + 1, 0);
+    ff = vvb(n + 2, vb(n + 2, false));
+    memo = vv<mint>(n + 2, vector<mint>(n + 2));
+    rep(i, n) {
+        cin >> a[i];
+        tab[i + 1] = tab[i] + a[i];
+    }
+    prt(split(0, 1).x);
 
     return 0;
 }

@@ -15,16 +15,13 @@ using vvl = vector<vector<ll>>;
 using vvb = vector<vector<bool>>;
 using vvc = vector<vector<char>>;
 using vvs = vector<vector<string>>;
-using vpii = vector<pair<int, int>>;
-using vpll = vector<pair<ll, ll>>;
-
 template<typename T> using vv = vector<vector<T>>;
 template<typename T> using vvv = vector<vector<vector<T>>>;
 template<typename T> using pq = priority_queue<T>;
 template<typename T> using pqg = priority_queue<T, vector<T>, greater<T>>;
 
-const int INF = 1000000000;
-const ll LINF = 1000000000000000000;
+const int INF = 1e9;
+const ll LINF = 1e18;
 const int DX[4] = {1, 0, -1, 0};
 const int DY[4] = {0, 1, 0, -1};
 
@@ -74,7 +71,7 @@ struct UnionFind {
     }
 };
 
-ll MOD = 1000000007;
+ll MOD = 1e9 + 7;
 //ll MOD = 998244353;
 
 struct mint {
@@ -96,6 +93,24 @@ struct mint {
 
 
 int main() {
+    ll n;
+    cin >> n;
+
+    vl a(n);
+    rep(i, n) cin >> a[i];
+
+    sort(rng(a));
+
+    ll ans = 0;
+
+    rep(i, n) {
+        auto l = lower_bound(rng(a), a[i]);
+        auto u = upper_bound(rng(a), a[i]);
+        auto t = a.end() - u;
+        ans += t;
+    }
+
+    prt(ans);
 
     return 0;
 }
